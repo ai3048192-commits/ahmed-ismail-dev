@@ -9,8 +9,7 @@ export const MEDIA_BUCKET = "media";
 
 const MAX_SIDE = 2000;
 
-/** big photos are resized and re-encoded as WebP before upload; SVG, GIF and PDF pass through */
-async function compress(file: File): Promise<File> {
+async function compress(file: any) {
   if (!/^image\/(png|jpe?g|webp|avif)$/i.test(file.type)) return file;
   try {
     const bitmap = await createImageBitmap(file);
@@ -20,8 +19,7 @@ async function compress(file: File): Promise<File> {
     canvas.height = Math.round(bitmap.height * scale);
     canvas.getContext("2d")!.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
     bitmap.close();
-    const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/webp", 0.84));
-    // keep the original when re-encoding doesn't actually help
+    const blob = await new Promise((r) => canvas.toBlob(r, "image/webp", 0.84));
     if (!blob || blob.size >= file.size) return file;
     return new File([blob], file.name.replace(/\.\w+$/, "") + ".webp", { type: "image/webp" });
   } catch {
@@ -29,7 +27,7 @@ async function compress(file: File): Promise<File> {
   }
 }
 
-export async function uploadMedia(original: File, folder: string) {
+export async function uploadMedia(original: any, folder: string) {
   const file = await compress(original);
   const ext = file.name.split(".").pop()?.toLowerCase() || "bin";
   const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
@@ -46,7 +44,6 @@ export type EventType = "cv_download" | "whatsapp_click" | "email_click" | "proj
 
 const isPreview = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("preview");
 
-/** fire-and-forget analytics; never blocks or breaks the UI */
 export function track(type: EventType, label = "") {
   if (isPreview) return;
   supabase
@@ -55,9 +52,8 @@ export function track(type: EventType, label = "") {
     .then(({ error }) => error && console.warn("track:", error.message));
 }
 
-/** asks the notify edge function to send any new messages/bookings to Telegram or email */
 export function pingNotify() {
   supabase.functions.invoke("notify").catch(() => {
-    /* function not deployed yet: notifications are optional */
+    /* optional */
   });
 }
