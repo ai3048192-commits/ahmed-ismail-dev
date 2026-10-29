@@ -9,7 +9,7 @@ export const MEDIA_BUCKET = "media";
 
 const MAX_SIDE = 2000;
 
-async function compress(file: any) {
+async function compress(file: File): Promise<File> {
   if (!/^image\/(png|jpe?g|webp|avif)$/i.test(file.type)) return file;
   try {
     const bitmap = await createImageBitmap(file);
@@ -19,7 +19,7 @@ async function compress(file: any) {
     canvas.height = Math.round(bitmap.height * scale);
     canvas.getContext("2d")!.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
     bitmap.close();
-    const blob = await new Promise((r) => canvas.toBlob(r, "image/webp", 0.84));
+    const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/webp", 0.84));
     if (!blob || blob.size >= file.size) return file;
     return new File([blob], file.name.replace(/\.\w+$/, "") + ".webp", { type: "image/webp" });
   } catch {
@@ -27,7 +27,7 @@ async function compress(file: any) {
   }
 }
 
-export async function uploadMedia(original: any, folder: string) {
+export async function uploadMedia(original: File, folder: string) {
   const file = await compress(original);
   const ext = file.name.split(".").pop()?.toLowerCase() || "bin";
   const path = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
