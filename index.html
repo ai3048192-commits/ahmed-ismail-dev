@@ -1,20 +1,30 @@
 <!doctype html>
-<html lang="ar" class="dark">
+<html lang="en" dir="ltr" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="./public/Gemini_Generated_Image_hjtkzbhjtkzbhjtk.png"
-    />
+    <link rel="icon" type="image/png" href="/Gemini_Generated_Image_hjtkzbhjtkzbhjtk.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ahmed_Ismail_Dev</title>
+    <meta name="description" content="Ahmed Ismail Shabana — Frontend developer building fast, maintainable web interfaces with React, Next.js, TypeScript and Supabase." />
+    <meta name="theme-color" content="#07060f" />
+    <title>Ahmed Ismail — Frontend Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Alexandria:wght@300;400;500;600;700&family=Bricolage+Grotesque:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      // apply the saved theme/language before React paints, so there is no flash
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "light") document.documentElement.classList.remove("dark");
+        var l = localStorage.getItem("lang");
+        if (l === "AR") { document.documentElement.lang = "ar"; document.documentElement.dir = "rtl"; }
+      } catch (e) {}
+    </script>
   </head>
-  <body
-    class="bg-white dark:bg-[#030712] text-zinc-900 dark:text-zinc-100 transition-colors duration-300"
-  >
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
   </body>
 </html>

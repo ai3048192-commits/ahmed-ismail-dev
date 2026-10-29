@@ -1,12 +1,250 @@
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Design tokens. Every component uses these instead of raw colors,
+   so light/dark is handled here once. */
+:root {
+  --bg: #f6f4ff;
+  --surface: #ffffff;
+  --surface-2: #efedf8;
+  --line: rgb(21 18 31 / 0.09);
+  --fg: #15121f;
+  --muted: #5d5970;
+  --faint: #8c879e;
+  --accent: #8b5cff;
+  --accent-2: #ff6ec7;
+  --grad: linear-gradient(120deg, #8b5cff, #ff6ec7);
+  --accent-fg: #ffffff;
+  --accent-ink: #6d3cf0;
+  --chart: #8b5cff;
+  --danger: #dc2626;
+}
+
+.dark {
+  --bg: #07060f;
+  --surface: #110f1f;
+  --surface-2: #1a1730;
+  --line: rgb(255 255 255 / 0.08);
+  --fg: #f5f3ff;
+  --muted: #a7a3bd;
+  --faint: #6f6a88;
+  --accent: #8b5cff;
+  --accent-2: #ff6ec7;
+  --grad: linear-gradient(120deg, #8b5cff, #ff6ec7);
+  --accent-fg: #ffffff;
+  --accent-ink: #b9a0ff;
+  --chart: #8b5cff;
+  --danger: #f87171;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-ink: var(--accent-ink);
+  --color-chart: var(--chart);
+  --color-danger: var(--danger);
+  --font-sans: var(--body-font);
+  --font-display: var(--display-font);
+  /* JetBrains Mono has no Arabic glyphs; Arabic falls through to the body font, not a system monospace */
+  --font-mono: "JetBrains Mono", var(--body-font), ui-monospace, monospace;
+  --radius-pill: var(--pill-radius);
+}
+
+/* overwritten at runtime from the dashboard settings (src/lib/settings.ts) */
+:root {
+  --body-font: "Inter", "Alexandria", ui-sans-serif, system-ui, sans-serif;
+  --display-font: var(--body-font);
+  --heading-weight: 600;
+  --pill-radius: 9999px;
+}
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 88px;
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
   body {
-    font-family: 'Tajawal', sans-serif;
-    @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+    @apply bg-bg text-fg font-sans antialiased;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  h1,
+  h2 {
+    font-family: var(--display-font);
+    font-weight: var(--heading-weight);
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+  :focus-visible {
+    outline: 2px solid var(--chart);
+    outline-offset: 2px;
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* half the list plus half the gap, so the loop has no jump */
+    transform: translateX(calc(-50% - var(--marquee-gap, 6px)));
+  }
+}
+
+/* ---- aurora glass building blocks ---- */
+@utility text-grad {
+  background-image: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility bg-grad {
+  background-image: var(--grad);
+}
+@utility glass {
+  background: color-mix(in oklab, var(--surface) 58%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid var(--line);
+}
+
+@keyframes aurora-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(12%, 10%) scale(1.2); }
+}
+@keyframes aurora-b {
+  0%, 100% { transform: translate(0, 0) scale(1.1); }
+  50% { transform: translate(-14%, 8%) scale(0.9); }
+}
+@keyframes aurora-c {
+  0%, 100% { transform: translate(0, 0) scale(0.95); }
+  50% { transform: translate(6%, -12%) scale(1.15); }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ---- blog article body (rendered markdown) ---- */
+.md {
+  color: var(--muted);
+  line-height: 1.85;
+  font-size: 1.0625rem;
+}
+.md > * + * {
+  margin-top: 1.25em;
+}
+.md h2,
+.md h3 {
+  color: var(--fg);
+  font-family: var(--display-font);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-top: 2em;
+}
+.md h2 {
+  font-size: 1.75rem;
+}
+.md h3 {
+  font-size: 1.35rem;
+}
+.md a {
+  color: var(--accent-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.md strong {
+  color: var(--fg);
+}
+.md ul,
+.md ol {
+  padding-inline-start: 1.4em;
+}
+.md ul {
+  list-style: disc;
+}
+.md ol {
+  list-style: decimal;
+}
+.md li + li {
+  margin-top: 0.4em;
+}
+.md li::marker {
+  color: var(--accent);
+}
+.md blockquote {
+  border-inline-start: 3px solid var(--accent);
+  padding-inline-start: 1.1em;
+  color: var(--fg);
+  font-style: italic;
+}
+.md code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--surface-2);
+  border-radius: 6px;
+  padding: 0.15em 0.4em;
+}
+.md pre {
+  direction: ltr;
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.1em 1.25em;
+}
+.md pre code {
+  background: none;
+  padding: 0;
+}
+.md img {
+  border-radius: 16px;
+  border: 1px solid var(--line);
+}
+.md table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+.md th,
+.md td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.6em 0.5em;
+  text-align: start;
+}
+.md hr {
+  border: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+/* "animations" switched off in the dashboard */
+html[data-motion="off"] [class*="animate-"] {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

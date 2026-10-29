@@ -1,0 +1,641 @@
+{
+  "items": [
+    {
+      "id": 7,
+      "title": "أحمد إسماعيل شبانة — مطور ويب",
+      "description": "أختص في هندسة وتطوير مواقع وتطبيقات ويب متطورة تجمع بين الأداء الفائق والتصميم السلس. أؤمن بأن الكود النظيف والقابل للتطوير هو أساس أي مشروع ناجح، ولذلك أحرص على تحويل الأفكار المعقدة إلى تجارب رقمية استثنائية تلبي تطلعات المستخدمين وتحقق أهداف العمل.",
+      "created_at": "2026-07-25T03:03:27.687696",
+      "title_en": "Ahmed Ismail Shabana — Web Developer",
+      "title_ar": "أحمد إسماعيل شبانة — مطور ويب",
+      "description_en": "I specialize in engineering and developing advanced web sites and applications that combine superior performance with seamless design. I believe clean and scalable code is the foundation of any successful project, and I strive to transform complex ideas into exceptional digital experiences that meet user expectations and business goals.",
+      "description_ar": "أختص في هندسة وتطوير مواقع وتطبيقات ويب متطورة تجمع بين الأداء الفائق والتصميم السلس. أؤمن بأن الكود النظيف والقابل للتطوير هو أساس أي مشروع ناجح، ولذلك أحرص على تحويل الأفكار المعقدة إلى تجارب رقمية استثنائية تلبي تطلعات المستخدمين وتحقق أهداف العمل."
+    }
+  ],
+  "settings": [
+    {
+      "id": 1,
+      "whatsapp": "01026337928",
+      "cv_file": "resume_2026.pdf",
+      "logo_url": "https://res.cloudinary.com/dstlpavbf/image/upload/v1781270832/ufxrcgmfpnto3vhipqi6.png",
+      "favicon_url": "",
+      "updated_at": "2026-10-05T11:56:25.551+00:00"
+    }
+  ],
+  "skills": [
+    {
+      "id": 26,
+      "name_ar": "تيلويند سي إس إس",
+      "name_en": "Tailwind CSS",
+      "level": 90,
+      "category": "Frontend",
+      "color": "#ff8af5",
+      "desc_ar": "تصميم واجهات عصرية ومتجاوبة مباشرة من خلال فئات جاهزة ومخصصة دون الحاجة لكتابة ملفات CSS تقليدية ضخمة.",
+      "desc_en": "Designing modern and responsive user interfaces directly using utility classes without writing massive traditional CSS files.",
+      "created_at": "2026-07-26T01:09:49.682333+00:00"
+    },
+    {
+      "id": 27,
+      "name_ar": "تاييب سكريبت",
+      "name_en": "TypeScript",
+      "level": 90,
+      "category": "Frontend",
+      "color": "#8cff00",
+      "desc_ar": "كتابة كود جافاسكريبت آمن وقابل للصيانة عبر إضافة نظام الأنواع الثابتة (Static Types) لاكتشاف الأخطاء مبكراً.",
+      "desc_en": "Writing robust and maintainable JavaScript code by adding static typing to catch errors early during development.",
+      "created_at": "2026-07-26T01:10:27.761642+00:00"
+    },
+    {
+      "id": 13,
+      "name_ar": "جافا سكريبت",
+      "name_en": "JavaScript",
+      "level": 90,
+      "category": "Frontend",
+      "color": "#f7df1e",
+      "desc_ar": "تطوير وتوسيع منطق البرمجة وتطبيقات الويب المتقدمة بلغة جافا سكريبت.",
+      "desc_en": "Developing and scaling programming logic and advanced web applications with JavaScript.",
+      "created_at": "2026-07-25T03:10:48.27455+00:00"
+    },
+    {
+      "id": 14,
+      "name_ar": "سوبابيز",
+      "name_en": "Supabase",
+      "level": 85,
+      "category": "Backend",
+      "color": "#3ecf8e",
+      "desc_ar": "إدارة قواعد البيانات والتوثيق والخدمات الخلفية السحابية باستخدام Supabase.",
+      "desc_en": "Managing databases, authentication, and cloud backend services using Supabase.",
+      "created_at": "2026-07-25T03:11:24.245733+00:00"
+    },
+    {
+      "id": 15,
+      "name_ar": "فيربيس",
+      "name_en": "Firebase",
+      "level": 85,
+      "category": "Backend",
+      "color": "#14f558",
+      "desc_ar": "استخدام خدمات جوجل السحابية لقواعد البيانات الفورية والتوثيق.",
+      "desc_en": "Utilizing Google's cloud services for real-time databases and authentication.",
+      "created_at": "2026-07-25T03:12:09.970558+00:00"
+    },
+    {
+      "id": 16,
+      "name_ar": "جيت و جيت هاب",
+      "name_en": "Git & GitHub",
+      "level": 90,
+      "category": "Tools",
+      "color": "#f05032",
+      "desc_ar": "إدارة النسخ الاحتياطية وإدارة الشيفرات البرمجية والعمل الجماعي باحترافية.",
+      "desc_en": "Managing version control, source code repositories, and collaborative workflows.",
+      "created_at": "2026-07-25T03:12:45.090488+00:00"
+    },
+    {
+      "id": 17,
+      "name_ar": "تصميم واجهات المستخدم",
+      "name_en": "UI/UX Design",
+      "level": 85,
+      "category": "Design",
+      "color": "#0040ff",
+      "desc_ar": "تصميم تجارب مستخدم جذابة وواجهات واضحة للمواقع والتطبيقات.",
+      "desc_en": "Designing engaging user experiences and clean interfaces for sites and apps.",
+      "created_at": "2026-07-25T03:13:26.272829+00:00"
+    },
+    {
+      "id": 18,
+      "name_ar": "فوتوشوب",
+      "name_en": "Adobe Photoshop",
+      "level": 85,
+      "category": "Design",
+      "color": "#ff33b4",
+      "desc_ar": "تعديل الصور وتصميم العناصر البصرية الخاصة بالمواقع والهوية.",
+      "desc_en": "Editing images and designing visual elements for websites and branding.",
+      "created_at": "2026-07-25T03:14:00.473241+00:00"
+    },
+    {
+      "id": 19,
+      "name_ar": "التصوير الفوتوغرافي",
+      "name_en": "Photography",
+      "level": 80,
+      "category": "Design",
+      "color": "#3100a3",
+      "desc_ar": "التقاط صور احترافية وتوظيفها بصرياً في التصاميم والمشاريع.",
+      "desc_en": "Capturing professional photos and integrating them visually into designs and projects.",
+      "created_at": "2026-07-25T03:14:44.640848+00:00"
+    },
+    {
+      "id": 20,
+      "name_ar": "دوكر",
+      "name_en": "Docker",
+      "level": 85,
+      "category": "Tools",
+      "color": "#2496ed",
+      "desc_ar": "عزل وتغليف التطبيقات داخل حاويات لضمان عملها بسلاسة وثبات عبر مختلف بيئات التطوير والإنتاج.",
+      "desc_en": "Containerizing applications to ensure seamless and consistent execution across different development and production environments.",
+      "created_at": "2026-07-26T01:03:41.030659+00:00"
+    },
+    {
+      "id": 21,
+      "name_ar": "ويب باك",
+      "name_en": "Webpack",
+      "level": 80,
+      "category": "Tools",
+      "color": "#586b74",
+      "desc_ar": "تجميع وتحسين ملفات وموارد الواجهة الأمامية (جافاسكريبت، صور، أنماط) لتقليل حجم التطبيق ورفع كفاءة التحميل.",
+      "desc_en": "Bundling and optimizing frontend assets and modules to reduce application bundle size and improve loading performance.",
+      "created_at": "2026-07-26T01:04:23.165418+00:00"
+    },
+    {
+      "id": 22,
+      "name_ar": "تحسين محركات البحث",
+      "name_en": "SEO",
+      "level": 85,
+      "category": "Optimization",
+      "color": "#000000",
+      "desc_ar": "تهيئة بنية الويب وهيكلة البيانات لرفع ظهور الموقع وتصدره في نتائج محركات البحث.",
+      "desc_en": "Optimizing web architecture and metadata to improve search engine visibility and ranking.",
+      "created_at": "2026-07-26T01:05:05.711967+00:00"
+    },
+    {
+      "id": 23,
+      "name_ar": "مؤشرات الأداء الأساسية للويب",
+      "name_en": "Core Web Vitals",
+      "level": 90,
+      "category": "Optimization",
+      "color": "#002e13",
+      "desc_ar": "قياس وتحسين سرعة الاستجابة، استقرار التخطيط البصري، وسرعة تحميل العناصر المرئية لتجربة مستخدم مثالية.",
+      "desc_en": "Measuring and enhancing loading performance, visual stability, and interactivity for an optimal user experience.",
+      "created_at": "2026-07-26T01:05:51.880345+00:00"
+    },
+    {
+      "id": 24,
+      "name_ar": "التحميل الكسول للموارد",
+      "name_en": "Lazy Loading",
+      "level": 95,
+      "category": "Optimization",
+      "color": "#ff9800",
+      "desc_ar": "تأجيل تحميل الصور والعناصر غير المرئية لحين الحاجة إليها لتقليل وقت التحميل الأولي واستهلاك النطاق الترددي.",
+      "desc_en": "Delaying the loading of non-critical images and assets until they enter the viewport to reduce initial load time and bandwidth usage.",
+      "created_at": "2026-07-26T01:06:30.3348+00:00"
+    },
+    {
+      "id": 12,
+      "name_ar": "رياكت جي إس",
+      "name_en": "React.js",
+      "level": 90,
+      "category": "Frontend",
+      "color": "#61dafb",
+      "desc_ar": "بناء وتطوير واجهات مستخدم تفاعلية، ديناميكية، وقابلة لإعادة الاستخدام باستخدام نظام المكونات الحديث",
+      "desc_en": "Building and developing interactive, dynamic, and reusable user interfaces using modern component-based architecture.",
+      "created_at": "2026-07-25T03:08:26.167002+00:00"
+    },
+    {
+      "id": 28,
+      "name_ar": "فيجما",
+      "name_en": "Figma",
+      "level": 85,
+      "category": "Design",
+      "color": "#f24e1e",
+      "desc_ar": "تصميم نماذج أولية (Prototypes) تفاعلية وواجهات مستخدم جذابة مع القدرة على التعاون الحي وتحويل التصاميم إلى كود برمجي بسهولة.",
+      "desc_en": "Designing interactive prototypes and engaging user interfaces with real-time collaboration capabilities and seamless transition to code.",
+      "created_at": "2026-07-26T01:13:29.412425+00:00"
+    },
+    {
+      "id": 29,
+      "name_ar": "مبادئ تصميم واجهات وتجربة المستخدم",
+      "name_en": "UI/UX Principles",
+      "level": 80,
+      "category": "Design",
+      "color": "#ffd500",
+      "desc_ar": "فهم سلوك المستخدمين، دراسة رحلة العميل (User Journey)، وتطبيق معايير سهولة الاستخدام (Usability) لتقديم تجربة سلسة.",
+      "desc_en": "Understanding user behavior, mapping user journeys, and applying core usability standards to deliver seamless digital experiences.",
+      "created_at": "2026-07-26T01:14:21.363627+00:00"
+    },
+    {
+      "id": 30,
+      "name_ar": "التصميم المتجاوب",
+      "name_en": "Responsive Design",
+      "level": 95,
+      "category": "Design",
+      "color": "#00c7b7",
+      "desc_ar": "ضمان توافق وتجاوب واجهات الويب بسلاسة مع جميع أحجام الشاشات والأجهزة المختلفة (هواتف، أجهزة لوحية، شاشات سطح المكتب).",
+      "desc_en": "Ensuring web interfaces adapt and render seamlessly across all screen sizes and devices (mobiles, tablets, and desktops).",
+      "created_at": "2026-07-26T01:15:28.796704+00:00"
+    },
+    {
+      "id": 25,
+      "name_ar": "فيو جي إس",
+      "name_en": " Vue.js",
+      "level": 85,
+      "category": "Frontend",
+      "color": "#41b883",
+      "desc_ar": "تطوير تطبيقات ويب أحادية الصفحة (SPA) سريعة ومرنة مع إدارة فعالة لحالة التطبيق والربط التلقائي للبيانات.",
+      "desc_en": "Developing fast and flexible Single Page Applications (SPAs) with efficient state management and reactive data binding.",
+      "created_at": "2026-07-26T01:09:05.768003+00:00"
+    }
+  ],
+  "projects": [
+    {
+      "id": 3,
+      "name_ar": "أكاديمية الأشبال",
+      "name_en": "Al-Ashbal Academy",
+      "url": "https://al-ashbal.pages.dev/",
+      "image": "https://res.cloudinary.com/dstlpavbf/image/upload/v1783637879/gbvo0zdplbxkolhrcuk4.jpg",
+      "desc_ar": "منصة متكاملة لأكاديمية الأشبال الرياضية، تهدف إلى تطوير مهارات الناشئين والبراعم البدنية والذهنية. توفر المنصة خططاً تدريبية مخصصة لكل مرحلة سنية، وإدارة الفروع، وعرض البطولات، ومنصة كشفية لاكتشاف وتطوير المواهب نحو الاحتراف.",
+      "desc_en": "An integrated platform for Al-Ashbal Sports Academy, aimed at developing the physical and mental skills of youth and juniors. The platform provides customized training programs for each age group, branch management, tournament displays, and a scouting platform to discover and develop talents towards professionalism.",
+      "category": "Applications",
+      "tags_ar": [
+        "أكاديمية رياضية",
+        "تدريب ناشئين",
+        "كرة قدم",
+        "برامج تدريبية",
+        "مواهب رياضية"
+      ],
+      "tags_en": [
+        "Sports Academy",
+        "Youth Training",
+        "Football",
+        "Training Programs",
+        "Sports Talents"
+      ],
+      "created_at": "2026-07-26T00:37:27.028707+00:00"
+    },
+    {
+      "id": 4,
+      "name_ar": "تطبيق القرآن الكريم",
+      "name_en": "Quran Application",
+      "url": "https://quran-flax-eta.vercel.app/",
+      "image": "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?q=80&w=2070&auto=format&fit=crop",
+      "desc_ar": "تطبيق ويب إسلامي متكامل لقراءة واستماع القرآن الكريم، يوفر تلاوات بأسوات مختلف القراء، مع إمكانية تصفح السور والآيات بمرونة وسهولة تامة.",
+      "desc_en": "An integrated Islamic web application for reading and listening to the Holy Quran, providing recitations by various reciters with the ability to browse Surahs and Ayahs with complete flexibility and ease.",
+      "category": "Applications",
+      "tags_ar": [
+        "لقرآن الكريم",
+        "تلاوات صوتية",
+        "مصحف إلكتروني",
+        "قراءة وتدبر",
+        "تطبيقات إسلامية"
+      ],
+      "tags_en": [
+        "Holy Quran",
+        "Audio Recitations",
+        "E-Quran",
+        "Reading and Reflection",
+        "Islamic Applications"
+      ],
+      "created_at": "2026-07-26T00:46:12.791624+00:00"
+    },
+    {
+      "id": 5,
+      "name_ar": "فرعون كود",
+      "name_en": "Pharaoh Code",
+      "url": "https://pharaoh-code.vercel.app/",
+      "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1920",
+      "desc_ar": "منصة برمجية تفاعلية مستضافة على Vercel، تهدف إلى توفير أدوات وحلول للمطورين لتسهيل كتابة وادارة الأكواد البرمجية بكفاءة عالية وبناء التطبيقات الحديثة.",
+      "desc_en": "An interactive programming platform hosted on Vercel, designed to provide developers with tools and solutions to efficiently write and manage code and build modern applications.",
+      "category": "Applications",
+      "tags_ar": [
+        "أدوات برمجية",
+        "تطوير واجهات",
+        "منصة تفاعلية",
+        "برمجة",
+        "تطبيقات سحابية"
+      ],
+      "tags_en": [
+        "Development Tools",
+        "Web Development",
+        "Interactive Platform",
+        "Programming",
+        "Cloud Applications"
+      ],
+      "created_at": "2026-07-26T00:49:09.884051+00:00"
+    },
+    {
+      "id": 6,
+      "name_ar": "هوملي",
+      "name_en": "Homely",
+      "url": "https://homely-lfyy.vercel.app/",
+      "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80&quot",
+      "desc_ar": "متجر إلكتروني متكامل مخصص للمنتجات المنزلية والأثاث والديكور، يتيح للمستخدمين استصفاء وشراء أحدث المنتجات لتجهيز وتزيين المنازل بسهولة وسلاسة.",
+      "desc_en": "An integrated e-commerce store dedicated to home products, furniture, and decor, allowing users to browse and purchase the latest products to furnish and decorate homes smoothly and easily.",
+      "category": "E-Commerce",
+      "tags_ar": [
+        "تسوق منزلي",
+        "أثاث وديكور",
+        "منتجات منزلية",
+        "متجر إلكتروني",
+        "مستلزمات المنزل"
+      ],
+      "tags_en": [
+        "Home Shopping",
+        "Furniture and Decor",
+        "Home Products",
+        "E-Commerce Store",
+        "Home Supplies"
+      ],
+      "created_at": "2026-07-26T00:51:37.936564+00:00"
+    },
+    {
+      "id": 7,
+      "name_ar": "فري ستايل",
+      "name_en": "Free Style",
+      "url": "https://free-style-7v85.vercel.app/",
+      "image": "https://images.unsplash.com/photo-1542272604-787c3835535d?w=1600",
+      "desc_ar": "تجر إلكتروني عصري متخصص في الأزياء والملابس، يقدم تشكيلة متنوعة وحديثة من المنتجات التي تلبي احتياجات التسوق اليومي بأسلوب أنيق وسلس.",
+      "desc_en": "A modern e-commerce store specialized in fashion and clothing, offering a diverse and contemporary collection of products that meet daily shopping needs in an elegant and seamless way.",
+      "category": "E-Commerce",
+      "tags_ar": [
+        "أزياء وموضة",
+        "ملابس عصرية",
+        "تسوق إلكتروني",
+        "متجر ملابس",
+        "فري ستايل"
+      ],
+      "tags_en": [
+        "Fashion and Style",
+        "Modern Clothing",
+        "E-Commerce",
+        "Clothing Store",
+        "Free Style"
+      ],
+      "created_at": "2026-07-26T00:53:30.043389+00:00"
+    },
+    {
+      "id": 8,
+      "name_ar": "لوحة تحكم طباخوه",
+      "name_en": "Tabaakhuh Dashboard",
+      "url": "https://tabaakhuh-ey12.vercel.app/",
+      "image": "https://i.postimg.cc/J0R8w6rD/Screenshot-2026-08-03-064252.png",
+      "desc_ar": "لوحة تحكم إدارية متكاملة مصممة لإدارة عمليات منصة \"طباخوه\" بكفاءة عالية. تتيح اللوحة للمadmins متابعة الطلبات، إدارة المستخدمين والطهاة، وعرض الإحصائيات والتقارير البيانية بواجهة مستخدم عصرية وسهلة الاستخدام.",
+      "desc_en": "A comprehensive administrative dashboard designed to efficiently manage the operations of the \"Tabaakhuh\" platform. The panel enables administrators to monitor orders, manage users and chefs, and view analytics and reports through a modern and user-friendly interface.",
+      "category": "Dashboards",
+      "tags_ar": [
+        "لوحة تحكم",
+        "إدارة الطلبات",
+        "إحصائيات",
+        "لوحة قيادة",
+        "واجهة إدارة"
+      ],
+      "tags_en": [
+        "Dashboard",
+        "Order Management",
+        "Analytics",
+        "Admin Panel",
+        "Management UI"
+      ],
+      "created_at": "2026-07-26T00:58:02.103662+00:00"
+    },
+    {
+      "id": 12,
+      "name_ar": "لوحة تحكم عيادات دوك لاين",
+      "name_en": "Docline Clinic Dashboard",
+      "url": "https://dashboard-docline.vercel.app/",
+      "image": "https://i.postimg.cc/8cg57m1J/Screenshot-2026-08-03-063330.png",
+      "desc_ar": "نظام ولوحة تحكم متكاملة لإدارة العيادات الطبية والمراكز الصحية، تتيح للم پزشين وإداريي العيادات متابعة المواعيد، سجلات المرضى، الإعدادات، والخدمات الطبية بكل سهولة واحترافية مع واجهة مستخدم عصرية وسريعة.",
+      "desc_en": "A comprehensive dashboard and management system designed for medical clinics and healthcare centers. It enables doctors and administrators to efficiently manage appointments, patient records, settings, and medical services with a modern, fast, and responsive user interface.",
+      "category": "Dashboards",
+      "tags_ar": [
+        "لوحة تحكم",
+        "إدارة عيادات",
+        "حجوزات",
+        "نظام طبي",
+        "دوك لاين",
+        "تفاصيل المواعيد"
+      ],
+      "tags_en": [
+        "Dashboard",
+        "Clinic Management",
+        "Appointments",
+        "Medical System",
+        "Docline",
+        "Healthcare"
+      ],
+      "created_at": "2026-08-03T03:38:34.525587+00:00"
+    },
+    {
+      "id": 11,
+      "name_ar": "دوكلاين - منصة إدارة المستندات والخدمات الذكية",
+      "name_en": "Docline - Smart Document Management Platform",
+      "url": "https://docline-dev74.vercel.app/",
+      "image": "https://i.postimg.cc/pL3tVXVQ/Screenshot-2026-08-03-064402.png",
+      "desc_ar": "منصة متطورة لإدارة وتنظيم المستندات والملفات بكفاءة عالية، وتوفير بيئة عمل رقمية آمنة وسريعة لتسهيل مراجعة وإدارة الوثائق للمستخدمين والشركات.",
+      "desc_en": "An advanced platform for managing and organizing documents and files with high efficiency, providing a secure and fast digital workflow environment to facilitate document review and management for users and businesses.",
+      "category": "Systems",
+      "tags_ar": [
+        "إدارة مستندات",
+        "نظام ذكي",
+        "أرشفة إلكترونية",
+        "تنظيم الملفات",
+        "منصة ويب"
+      ],
+      "tags_en": [
+        "Document Management",
+        "Smart System",
+        "Digital Archiving",
+        "File Organization",
+        "Web Platform"
+      ],
+      "created_at": "2026-07-26T03:30:36.902249+00:00"
+    },
+    {
+      "id": 9,
+      "name_ar": " بورتفوليو سمحان - مشروع سمحان",
+      "name_en": "Samhan Portfolio - Samhan Project",
+      "url": "https://samhan10.vercel.app/",
+      "image": "https://samhan74.vercel.app/assets/%D8%B3%D9%85%D8%AD%D8%A7%D9%86-YVJAfP1a.png",
+      "desc_ar": "معرض أعمال احترافي مخصص لعرض أحدث مشاريع التصميم الجرافيكي والهوية البصرية. يتميز بعرض مرئي أنيق وجذاب يبرز مهارات الابتكار وتنسيق الألوان وتصميم واجهات المستخدم.",
+      "desc_en": "A professional portfolio dedicated to showcasing the latest graphic design and visual identity projects. Features an elegant and engaging visual display highlighting creativity, color coordination, and UI/UX design skills.",
+      "category": "Systems",
+      "tags_ar": [
+        "تصميم جرافيكي",
+        "هوية بصرية",
+        "تصميم مرئي",
+        "واجهة مستخدم",
+        "إبداع فني"
+      ],
+      "tags_en": [
+        "Graphic Design",
+        "Visual Identity",
+        "UI/UX Design",
+        "Branding",
+        "Creative Art"
+      ],
+      "created_at": "2026-07-26T01:00:07.218383+00:00"
+    },
+    {
+      "id": 10,
+      "name_ar": "سبرايلو - متجر الإلكترونيات والتقنية المستقبلية",
+      "name_en": "Sprylo - Next-Gen Tech & Electronics Store",
+      "url": "https://sprylo-peach.vercel.app/",
+      "image": "https://i.postimg.cc/jjWdvF2Q/Screenshot-2026-08-03-064045.png",
+      "desc_ar": "منصة تجارة إلكترونية عصرية ومتطورة مخصصة لبيع الهواتف الذكية، الأجهزة اللوحية، وأحدث الإكسسوارات والسماعات اللاسلكية. تتميز بتصميم سيبراني مستقبلي فريد، واجهة المستخدم السلسة، وتجربة تصفح سريعة وآمنة.",
+      "desc_en": "A modern and advanced e-commerce platform dedicated to smartphones, tablets, and the latest wireless accessories and audio gear. It features a unique futuristic cyber design, seamless user interface, and a fast, secure shopping experience.",
+      "category": "E-Commerce",
+      "tags_ar": [
+        "متجر إلكتروني",
+        "تكنولوجيا",
+        "هواتف ذكية",
+        "سماعات لاسلكية",
+        "تسوق أونلاين",
+        "عروض حصرية"
+      ],
+      "tags_en": [
+        "E-Commerce",
+        "Technology",
+        "Smart Phones",
+        "Wireless Audio",
+        "Online Shopping",
+        "Exclusive Offers"
+      ],
+      "created_at": "2026-07-26T03:29:13.575887+00:00"
+    },
+    {
+      "id": 13,
+      "name_ar": "بابا المجال",
+      "name_en": "Baba El Magal",
+      "url": "https://baba-el-magal.vercel.app/",
+      "image": "https://i.postimg.cc/25n8XtmC/Screenshot-2026-08-04-090949.png",
+      "desc_ar": "ويب تفاعلي ومميز، مصمم بعناية ليقدم تجربة مستخدم سلسة وعصرية مع واجهات متجاوبة وأداء عالي السرعة مبني باستخدام أحدث التقنيات.",
+      "desc_en": "An interactive and modern web application carefully designed to deliver a seamless user experience with responsive interfaces and high performance built using cutting-edge technologies.",
+      "category": "E-Commerce",
+      "tags_ar": [
+        "تطبيقات ويب",
+        "تفاعلي",
+        "واجهة مستخدم",
+        "رياكت",
+        "ديجيتال"
+      ],
+      "tags_en": [
+        "Web Apps",
+        "Interactive",
+        "UI/UX",
+        "React",
+        "Digital"
+      ],
+      "created_at": "2026-08-04T06:11:34.363692+00:00"
+    },
+    {
+      "id": 14,
+      "name_ar": "بابا المجال - خدمة البريد",
+      "name_en": "Baba El Magal - Email Service",
+      "url": "https://baba-el-magal-email.vercel.app/",
+      "image": "https://i.postimg.cc/Pxq98LSB/Screenshot-2026-08-04-091219.png",
+      "desc_ar": "منصة أو أداة مخصصة لإدارة خدمات البريد الإلكتروني والإشعارات، مصممة لتسهيل التواصل وإرسال الرسائل بتنسيقات عصرية واحترافية.",
+      "desc_en": "A dedicated platform or tool for managing email services and notifications, designed to streamline communication and send messages in modern, professional layouts.",
+      "category": "Applications",
+      "tags_ar": [
+        "بريد إلكتروني",
+        "أدوات",
+        "اتصال",
+        "قوالب رسائل",
+        "نظام إشعارات"
+      ],
+      "tags_en": [
+        "Email Service",
+        "Tools",
+        "Communication",
+        "Email Templates",
+        "Notification System"
+      ],
+      "created_at": "2026-08-04T06:14:22.081533+00:00"
+    },
+    {
+      "id": 15,
+      "name_ar": "نظام الإدارة الشامل",
+      "name_en": "Comprehensive System Dashboard",
+      "url": "https://system-coral-delta.vercel.app/",
+      "image": "https://i.postimg.cc/6p2ct0dp/Screenshot-2026-08-08-060227.png",
+      "desc_ar": "لوحة تحكم إدارية متكاملة ومتطورة، مصممة خصيصاً لمساعدة الشركات والأفراد على إدارة العمليات، ومتابعة البيانات والإحصائيات الحية بسهولة وكفاءة عالية، مع دعم كامل لتجربة مستخدم سلسة ومتجاوبة مع كافة الشاشات.",
+      "desc_en": "An advanced and comprehensive management dashboard designed to help businesses and individuals handle operations, monitor real-time data and analytics efficiently, featuring a fully responsive and seamless user experience.",
+      "category": "Systems",
+      "tags_ar": [
+        "لوحة تحكم",
+        "إدارة",
+        "نظام إداري",
+        "تحليل بيانات",
+        "واجهة مستخدم"
+      ],
+      "tags_en": [
+        "Dashboard",
+        "Management",
+        "System",
+        "Analytics",
+        "UI/UX"
+      ],
+      "created_at": "2026-08-08T03:04:27.230823+00:00"
+    },
+    {
+      "id": 16,
+      "name_ar": "طيف العرو",
+      "name_en": "Taif Al Arwo",
+      "url": "https://taif-al-arwo.vercel.app/",
+      "image": "https://i.postimg.cc/sfHqkyQz/Screenshot-2026-08-11-080222.png",
+      "desc_ar": "منصة تعريفية احترافية تتيح للمحامي عرض خدماته الاستشارية والقانونية للعملاء، مع واجهة عصرية وسهلة تتيح للزوار حجز المواعيد والتعرف على التخصصات القانونية المختلفة بثقة واحترافية.",
+      "desc_en": "A professional portfolio platform enabling a lawyer to showcase advisory and legal services to clients, featuring a modern and user-friendly interface that allows visitors to book appointments and explore various legal specialties with confidence.",
+      "category": "Applications",
+      "tags_ar": [
+        "محامي",
+        "استشارات قانونية",
+        "خدمات قانونية",
+        "محاماة",
+        "قضايا",
+        "استشارة فورية"
+      ],
+      "tags_en": [
+        "Lawyer",
+        "Legal Consultation",
+        "Legal Services",
+        "Law Firm",
+        "Cases",
+        "Instant Consultation"
+      ],
+      "created_at": "2026-08-11T05:04:46.232819+00:00"
+    }
+  ],
+  "education": [
+    {
+      "id": 4,
+      "created_at": "2026-07-25T03:32:08.749445+00:00",
+      "type": "certificate",
+      "title_ar": "دبلومة التطوير الشامل (Full Stack)",
+      "title_en": "Full Stack Diploma",
+      "org_ar": "أكاديمية رايا / كومپتيا",
+      "org_en": "Raya Academy / CompTIA",
+      "period": "مارس 2024 (MAR 2024)",
+      "badge_ar": "رايا أكاديمي / كومپتيا",
+      "badge_en": "Raya Academy / CompTIA",
+      "image": "https://lens.usercontent.google.com/image?vsrid=COmArdyYprnCbBACGAEiJDkxNGY1M2VjLWZkNmQtNGZlMS05MzMxLTY4ODk1MzZjZDY1ZDKBASICZWgoCkJzCi5sZmUtZHVtbXk6ZjBkNWFkNmEtNTIzYi00NWQ4LWIyYjMtYzVmNTA3MzU3MmZlEkEKPy9ibnMvZWgvYm9yZy9laC9ibnMvbGVucy1mcm9udGVuZC1hcGkvcHJvZC5sZW5zLWZyb250ZW5kLWFwaS8yMloECgJlaDjRoYWqiO-VAw&gsessionid=z81dqoBgR4nd7dH8y2X1ipCSN4LgDlEnS0pWu7oqDTHfqPy3uVo9gg",
+      "desc_ar": "إتمام دبلومة التطوير الشامل (Full Stack Diploma) بنجاح واستيفاء كافة متطلبات البرنامج التدريبي المعتمد من أكاديمية رايا بالتعاون مع CompTIA.",
+      "desc_en": "Successfully completed the Full Stack Diploma, meeting all training program requirements certified by Raya Academy in collaboration with CompTIA."
+    },
+    {
+      "id": 2,
+      "created_at": "2026-07-25T03:26:10.488178+00:00",
+      "type": "certificate",
+      "title_ar": "شهادة تقدير في مجال التسويق الإلكتروني",
+      "title_en": "Certificate of Excellence in E-Marketing",
+      "org_ar": "وولف للتسويق والإعلان",
+      "org_en": "Wolf Marketing & Advertising",
+      "period": "من 12 أبريل إلى 19 أبريل 2022 (2022-04-12 to 2022-04-19)",
+      "badge_ar": "ولف للتسويق والإعلان",
+      "badge_en": "Wolf Marketing and Advertising",
+      "image": "https://lens.usercontent.google.com/image?vsrid=CKqW5f-b6IeWhAEQAhgBIiRhNzQ1ZGU0NS1kMzVmLTQ3MzAtYTBkZi0zMjJkYWFkZDAwNzAygQEiAmVoKBZCcwoubGZlLWR1bW15OjJlZTliN2M2LWRjZjYtNDEzYi04MTFlLWM1YzhmYmMxMDUyMRJBCj8vYm5zL2VoL2JvcmcvZWgvYm5zL2xlbnMtZnJvbnRlbmQtYXBpL3Byb2QubGVucy1mcm9udGVuZC1hcGkvMjhaBAoCZWg429_ZwfHslQM&gsessionid=Wpr9gh2CPLRSDCJceSHqaLgsaoBLlJV3FcbBkGhf0mg8bnE2gmeCvw",
+      "desc_ar": "اجتياز الدورة الخاصة بمجال التسويق الإلكتروني بتقدير \"جيد جداً\"، وتغطي أساسيات التسويق الرقمي والترويج الفعّال.",
+      "desc_en": "Successfully passed the specialized course in E-Marketing with a \"Very Good\" grade, covering digital marketing fundamentals and effective promotion."
+    },
+    {
+      "id": 3,
+      "created_at": "2026-07-25T03:30:48.11387+00:00",
+      "type": "certificate",
+      "title_ar": "خبرة مطور برمجيات وتطبيقات الويب",
+      "title_en": "Web Developer Experience",
+      "org_ar": "شركة آرت سوفت لتطوير البرمجيات",
+      "org_en": "ART SOFT Development & Software",
+      "period": "من 2022/1/1 إلى 2023/9/1",
+      "badge_ar": "آرت سوفت للتطوير والبرمجيات",
+      "badge_en": "ART SOFT Development & Software",
+      "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop",
+      "desc_ar": "شهادة إثبات خبرة عمل في منصب مطور برمجيات عبر الإنترنت؛ شملت إنشاء مواقع إلكترونية، تطوير برمجيات الشركة، وتعديل وتحديث البرامج المستخدمة ضمن فريق عمل متكامل.",
+      "desc_en": "Work experience certificate as a Web Developer; including creating websites, developing company software, updating applications, and working efficiently within a team."
+    }
+  ],
+  "messages": []
+}

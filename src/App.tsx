@@ -1,43 +1,47 @@
-import { useState, useEffect } from "react";
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import Skills from "./components/Skills";
-import Projects from "./components/Projects";
-import Experience from "./components/Experience";
-import Contact from "./components/Contact";
-import Footer from "./components/footer";
-import FloatingWidget from "./components/FloatingWidget";
+import { Suspense, lazy } from "react";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import NotFound from "./site/NotFound";
+import Portfolio from "./site/Portfolio";
+import ProjectPage from "./site/ProjectPage";
+import { SiteDataProvider } from "./site/SiteData";
 
-function App() {
-  const [currentLang, setCurrentLang] = useState("EN");
-  const [isDark, setIsDark] = useState(true);
+// the dashboard is a separate chunk: visitors never download it
+const AdminApp = lazy(() => import("./admin/AdminApp"));
+// the markdown renderer only loads when someone opens the blog
+const BlogIndex = lazy(() => import("./site/Blog").then((m) => ({ default: m.BlogIndex })));
+const BlogPost = lazy(() => import("./site/Blog").then((m) => ({ default: m.BlogPost })));
 
-  useEffect(() => {
-    document.documentElement.dir = currentLang === "AR" ? "rtl" : "ltr";
-    document.documentElement.lang = currentLang.toLowerCase();
-  }, [currentLang]);
-
+/** public pages share one data load */
+function PublicSite() {
   return (
-    <div className={`${isDark ? "bg-[#07090F] text-white" : "bg-white text-slate-900"} min-h-screen transition-colors duration-300`}>
-      <Header 
-        currentLang={currentLang} 
-        setCurrentLang={setCurrentLang} 
-        isDark={isDark} 
-        setIsDark={setIsDark} 
-      />
-
-      <main>
-        <Hero lang={currentLang} isDark={isDark} />
-        <Skills lang={currentLang} isDark={isDark} />
-        <Projects lang={currentLang} isDark={isDark} />
-        <Experience lang={currentLang} isDark={isDark} />
-        <Contact lang={currentLang} isDark={isDark} />
-      </main>
-
-      <FloatingWidget lang={currentLang} isDark={isDark} />
-      <Footer lang={currentLang} isDark={isDark} />
-    </div>
+    <SiteDataProvider>
+      <Suspense fallback={<div className="min-h-screen bg-bg" />}>
+        <Outlet />
+      </Suspense>
+    </SiteDataProvider>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<PublicSite />}>
+          <Route path="/" element={<Portfolio />} />
+          <Route path="/work/:slug" element={<ProjectPage />} />
+          <Route path="/blog" element={<BlogIndex />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+        </Route>
+        <Route
+          path="/admin/*"
+          element={
+            <Suspense fallback={<div className="min-h-screen bg-bg" />}>
+              <AdminApp />
+            </Suspense>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
