@@ -15,48 +15,85 @@ export default function Footer({ profile, base = "", hasBlog = false }: { profil
   // the first name, set huge across the bottom of the page
   const wordmark = (pick(s.brand_name_en, s.brand_name_ar) || name).split(/\s+/)[0];
   const cta = pick(s.footer_cta_en, s.footer_cta_ar);
+  const note = pick(s.footer_note_en, s.footer_note_ar);
+
+  const links = [
+    { label: pick("My work", "أعمالي"), href: `${base}#work`, internal: false },
+    { label: pick("Contact", "تواصل معايا"), href: `${base}#contact`, internal: false },
+    ...(hasBlog ? [{ label: pick("Blog", "المقالات"), href: "/blog", internal: true }] : []),
+  ];
+  const linkCls = "text-sm text-muted hover:text-fg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded";
 
   return (
     <footer className="relative px-3 sm:px-6 pb-6 pt-16 overflow-hidden">
-      <div className="glass relative max-w-7xl mx-auto rounded-[2.25rem] overflow-hidden">
-        <div aria-hidden className="absolute -top-40 left-1/2 h-80 w-[70%] -translate-x-1/2 rounded-full bg-grad opacity-25 blur-[100px]" />
-        <div className="relative p-8 sm:p-14 text-center">
-          {cta && <p className="font-display font-semibold text-4xl sm:text-6xl tracking-tight leading-[1.05] text-balance max-w-[18ch] mx-auto">{cta}</p>}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <Magnetic>
-              <a href={`${base}#contact`} className={btn.primary}>
-                {pick("Start a project", "ابدأ مشروع")} <ArrowUpRight size={16} className="rtl:-scale-x-100" />
-              </a>
-            </Magnetic>
-            {profile.cv_url && (
-              <a href={profile.cv_url} target="_blank" rel="noopener noreferrer" onClick={() => track("cv_download", "footer")} className={btn.ghost}>
-                <Download size={16} /> {pick("CV", "الـ CV")}
-              </a>
-            )}
+      <div className="glass relative max-w-7xl mx-auto rounded-[2rem] border border-line overflow-hidden">
+        <div aria-hidden className="absolute -top-40 start-0 h-80 w-[60%] rounded-full bg-grad opacity-20 blur-[100px]" />
+
+        {/* ---------- top: call to action + columns ---------- */}
+        <div className="relative grid gap-12 p-8 sm:p-12 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
+          <div className="text-start">
+            {cta && <p className="font-display font-semibold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.08] text-balance max-w-[18ch]">{cta}</p>}
+            <div className={`${cta ? "mt-9" : ""} flex flex-wrap items-center gap-3`}>
+              <Magnetic>
+                <a href={`${base}#contact`} className={btn.primary}>
+                  {pick("Start a project", "ابدأ مشروع")} <ArrowUpRight size={16} className="rtl:-scale-x-100" />
+                </a>
+              </Magnetic>
+              {profile.cv_url && (
+                <a href={profile.cv_url} target="_blank" rel="noopener noreferrer" onClick={() => track("cv_download", "footer")} className={btn.ghost}>
+                  <Download size={16} /> {pick("Download CV", "حمّل الـ CV")}
+                </a>
+              )}
+            </div>
           </div>
-          <div className="mt-8 flex items-center justify-center gap-2">
-            <SocialLinks profile={profile} />
-            <a href="#top" className={btn.icon} aria-label={pick("Back to top", "لأعلى الصفحة")}>
-              <ArrowUp size={16} />
+
+          <div className="grid grid-cols-2 gap-8 text-start lg:border-s lg:border-line lg:ps-12">
+            <nav aria-label={pick("Site links", "روابط الموقع")}>
+              <p className="mb-4 text-sm font-medium">{pick("Explore", "الموقع")}</p>
+              <ul className="space-y-3">
+                {links.map((l) => (
+                  <li key={l.label}>
+                    {l.internal ? (
+                      <Link to={l.href} className={linkCls}>
+                        {l.label}
+                      </Link>
+                    ) : (
+                      <a href={l.href} className={linkCls}>
+                        {l.label}
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div>
+              <p className="mb-4 text-sm font-medium">{pick("Follow", "تابعني")}</p>
+              <SocialLinks profile={profile} className="flex-wrap" />
+            </div>
+          </div>
+        </div>
+
+        {/* ---------- bottom bar ---------- */}
+        <div className="relative px-8 sm:px-12 py-5 border-t border-line flex flex-wrap items-center justify-between gap-x-6 gap-y-3 text-xs text-faint">
+          <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <span>
+              © {new Date().getFullYear()} {name}
+            </span>
+            {note && <span className="text-faint/80">{note}</span>}
+          </p>
+          <div className="flex items-center gap-4">
+            <span className="hidden sm:inline">{pick(profile.role_en, profile.role_ar)}</span>
+            <a
+              href="#top"
+              className="inline-flex items-center gap-2 rounded-pill border border-line px-3 py-1.5 text-muted hover:text-fg hover:border-fg/25 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            >
+              <ArrowUp size={14} aria-hidden /> {pick("Back to top", "لأعلى الصفحة")}
             </a>
           </div>
         </div>
 
-        <div className="relative px-8 sm:px-14 py-5 border-t border-line flex flex-wrap items-center justify-between gap-3 text-xs text-faint">
-          <span>
-            © {new Date().getFullYear()} {name}
-            {pick(s.footer_note_en, s.footer_note_ar) && <span> · {pick(s.footer_note_en, s.footer_note_ar)}</span>}
-          </span>
-          <span className="flex items-center gap-4">
-            {hasBlog && (
-              <Link to="/blog" className="hover:text-fg">
-                {pick("Blog", "المقالات")}
-              </Link>
-            )}
-            <span>{pick(profile.role_en, profile.role_ar)}</span>
-          </span>
-        </div>
-
+        {/* ---------- wordmark ---------- */}
         <p
           aria-hidden
           dir={isAr ? "rtl" : "ltr"}

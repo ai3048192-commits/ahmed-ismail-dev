@@ -9,44 +9,66 @@ import { Section, SectionHeading } from "./ui";
 export default function Pricing({ packages, index, bookable }: { packages: Package[]; index: string; bookable: boolean }) {
   const { pick, isAr } = usePrefs();
   const { settings } = useSettings();
+
+  const layout =
+    packages.length >= 3 ? "md:grid-cols-2 lg:grid-cols-3" : packages.length === 2 ? "md:grid-cols-2 max-w-4xl mx-auto" : "max-w-md mx-auto";
+
   return (
     <Section id="pricing">
       <SectionHeading section="pricing" index={index} />
-      <ul className={`grid gap-5 items-stretch ${packages.length >= 3 ? "lg:grid-cols-3" : packages.length === 2 ? "md:grid-cols-2 max-w-4xl mx-auto" : "max-w-md mx-auto"}`}>
+
+      <ul className={`grid gap-5 items-stretch ${layout}`}>
         {packages.map((p, i) => {
           const features = isAr && p.features_ar.length ? p.features_ar : p.features_en;
-          const card = (
-            <div className={`relative h-full rounded-[1.75rem] p-8 flex flex-col ${p.highlighted ? "bg-surface" : "glass"}`}>
-              {p.highlighted && (
-                <span className="absolute -top-3.5 start-8 rounded-pill bg-grad px-3.5 py-1 text-xs font-semibold text-white shadow-[0_10px_30px_-10px_var(--accent)]">
-                  {pick("Most popular", "الأكثر طلباً")}
-                </span>
-              )}
-              <h3 className="font-display text-xl tracking-tight">{pick(p.name_en, p.name_ar)}</h3>
-              {pick(p.desc_en, p.desc_ar) && <p className="mt-2 text-sm text-muted leading-relaxed">{pick(p.desc_en, p.desc_ar)}</p>}
-              <p className="mt-8 flex items-baseline gap-2">
-                <span className={`font-display text-5xl tracking-tight ${p.highlighted ? "text-grad" : ""}`}>{p.price}</span>
-                {pick(p.period_en, p.period_ar) && <span className="text-sm text-faint">{pick(p.period_en, p.period_ar)}</span>}
-              </p>
-              <ul className="mt-8 space-y-3 flex-1">
-                {features.map((f) => (
-                  <li key={f} className="flex gap-3 text-sm">
-                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-grad text-white">
-                      <Check size={12} strokeWidth={3} />
-                    </span>
-                    <span className="text-muted">{f}</span>
-                  </li>
-                ))}
-              </ul>
-              <a href={bookable ? "#booking" : "#contact"} className={`mt-10 w-full ${p.highlighted ? btn.primary : btn.ghost}`}>
-                {pick(p.cta_en, p.cta_ar) || pick("Get started", "ابدأ دلوقتي")}
-              </a>
-            </div>
-          );
+          const desc = pick(p.desc_en, p.desc_ar);
+          const period = pick(p.period_en, p.period_ar);
+          const hl = !!p.highlighted;
+
           return (
-            <Reveal as="li" key={p.id} delay={i * 0.08} className={p.highlighted ? "lg:-my-4" : ""}>
-              <Tilt enabled={settings.tilt_cards} max={4} className="h-full rounded-[1.75rem]">
-                {p.highlighted ? <div className="h-full rounded-[1.75rem] bg-grad p-px shadow-[0_40px_100px_-40px_var(--accent)]">{card}</div> : card}
+            <Reveal as="li" key={p.id} delay={i * 0.08}>
+              <Tilt enabled={settings.tilt_cards} max={3} className="h-full rounded-3xl">
+                <article
+                  className={`relative flex h-full flex-col rounded-3xl border bg-surface p-7 sm:p-8 transition-colors ${
+                    hl
+                      ? "border-accent shadow-[0_30px_80px_-45px_var(--accent)]"
+                      : "border-line hover:border-fg/25"
+                  }`}
+                >
+                  {/* header: name + badge on one row so every card lines up */}
+                  <header className="flex items-start justify-between gap-3">
+                    <h3 className="font-display text-xl tracking-tight">{pick(p.name_en, p.name_ar)}</h3>
+                    {hl && (
+                      <span className="shrink-0 rounded-pill border border-accent/40 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent-ink">
+                        {pick("Most popular", "الأكثر طلباً")}
+                      </span>
+                    )}
+                  </header>
+
+                  <p className="mt-2 min-h-[2.75rem] text-sm leading-relaxed text-muted">{desc}</p>
+
+                  {/* price */}
+                  <p className="mt-6 flex items-baseline gap-2">
+                    <span className="font-display text-5xl tracking-tight tabular-nums">{p.price}</span>
+                    {period && <span className="text-sm text-faint">{period}</span>}
+                  </p>
+
+                  {/* features */}
+                  <div className="mt-7 flex-1 border-t border-line pt-7">
+                    <ul className="space-y-3.5">
+                      {features.map((f) => (
+                        <li key={f} className="flex items-start gap-3 text-sm">
+                          <Check size={16} strokeWidth={2.5} className="mt-0.5 shrink-0 text-accent-ink" aria-hidden />
+                          <span className="text-muted">{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* action */}
+                  <a href={bookable ? "#booking" : "#contact"} className={`mt-8 w-full ${hl ? btn.primary : btn.ghost}`}>
+                    {pick(p.cta_en, p.cta_ar) || pick("Get started", "ابدأ دلوقتي")}
+                  </a>
+                </article>
               </Tilt>
             </Reveal>
           );
