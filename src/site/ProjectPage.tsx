@@ -28,8 +28,8 @@ const hostOf = (url?: string | null) => {
 /** the screenshot inside a small browser frame (same look as the cards on the home page) */
 function BrowserFrame({ p }: { p: Project }) {
   return (
-    <div className="overflow-hidden rounded-[1.75rem] border border-line bg-surface shadow-[0_50px_120px_-60px_var(--accent)]">
-      <div className="flex h-10 items-center gap-2 border-b border-line bg-surface-2/60 px-4" dir="ltr" aria-hidden>
+    <div className="overflow-hidden rounded-3xl border border-line bg-surface">
+      <div className="flex h-10 items-center gap-2 border-b border-line bg-surface-2 px-4" dir="ltr" aria-hidden>
         <span className="h-2.5 w-2.5 rounded-full bg-faint/40" />
         <span className="h-2.5 w-2.5 rounded-full bg-faint/40" />
         <span className="h-2.5 w-2.5 rounded-full bg-faint/40" />
@@ -37,14 +37,14 @@ function BrowserFrame({ p }: { p: Project }) {
         <span className="w-[50px]" />
       </div>
       <div className="aspect-[16/9] overflow-hidden">
-        <Cover p={p} />
+        <Cover p={p} eager />
       </div>
     </div>
   );
 }
 
 function SectionTitle({ children }: { children: ReactNode }) {
-  return <h2 className="font-display text-2xl tracking-tight">{children}</h2>;
+  return <h2 className="font-display text-2xl font-bold tracking-tight">{children}</h2>;
 }
 
 /* ------------------------------------------------------------------ */
@@ -70,7 +70,7 @@ function Story({ steps }: { steps: { k: string; v: string }[] }) {
               {!last && <span className="mt-2 w-px flex-1 bg-line" aria-hidden />}
             </div>
             <Reveal className={`min-w-0 flex-1 ${last ? "" : "pb-10"}`}>
-              <h3 className="pt-1.5 font-display text-xl tracking-tight">{s.k}</h3>
+              <h3 className="pt-1.5 font-display text-xl font-bold tracking-tight">{s.k}</h3>
               <p className="mt-3 whitespace-pre-line leading-[1.85] text-muted">{s.v}</p>
             </Reveal>
           </li>
@@ -171,7 +171,7 @@ function PrevNext({ prev, next, label }: { prev: Project; next: Project; label: 
           </span>
           <span className="min-w-0 flex-1">
             <span className="block text-xs text-faint">{hint}</span>
-            <span className="mt-1 block truncate font-display text-lg">{pick(q.name_en, q.name_ar)}</span>
+            <span className="mt-1 block truncate font-display text-lg font-bold">{pick(q.name_en, q.name_ar)}</span>
           </span>
           <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-line text-muted transition-colors group-hover:border-accent group-hover:bg-accent group-hover:text-accent-fg">
             <Icon size={17} aria-hidden />
@@ -188,7 +188,7 @@ function NotFound() {
     <SiteLayout meta={{ title: pick("Project not found", "المشروع مش موجود") }}>
       <div className="grid min-h-[70vh] place-items-center px-5 pt-28 text-center">
         <div>
-          <h1 className="text-4xl tracking-tight">{pick("This project doesn't exist.", "المشروع ده مش موجود.")}</h1>
+          <h1 className="text-4xl tracking-[-0.03em]">{pick("This project doesn't exist.", "المشروع ده مش موجود.")}</h1>
           <Link to="/#work" className={`${btn.primary} mt-8`}>
             {pick("All projects", "كل المشاريع")}
           </Link>
@@ -253,7 +253,7 @@ export default function ProjectPage() {
           </Link>
 
           <Reveal className="mt-10 max-w-4xl">
-            <h1 className="text-4xl tracking-tight text-balance sm:text-6xl lg:text-7xl">
+            <h1 className="text-4xl leading-[1] tracking-[-0.045em] text-balance sm:text-6xl lg:text-7xl">
               <GradientTitle text={pick(p.name_en, p.name_ar)} />
             </h1>
             <p className="mt-6 max-w-[60ch] text-lg leading-relaxed text-muted">{pick(p.desc_en, p.desc_ar)}</p>

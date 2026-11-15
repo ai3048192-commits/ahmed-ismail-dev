@@ -1,40 +1,45 @@
 @import "tailwindcss";
 
+/* only scan the app itself (keeps the CSS bundle small) */
+@source not "../dist";
+@source not "../supabase";
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* Design tokens. Every component uses these instead of raw colors,
-   so light/dark is handled here once. */
+   so light/dark is handled here once. The dashboard overrides them at runtime
+   (src/lib/settings.ts → themeCss). */
 :root {
-  --bg: #f6f4ff;
+  --bg: #f7f6f2;
   --surface: #ffffff;
-  --surface-2: #efedf8;
-  --line: rgb(21 18 31 / 0.09);
-  --fg: #15121f;
-  --muted: #5d5970;
-  --faint: #8c879e;
-  --accent: #8b5cff;
-  --accent-2: #ff6ec7;
-  --grad: linear-gradient(120deg, #8b5cff, #ff6ec7);
+  --surface-2: #efeee9;
+  --line: rgb(20 20 20 / 0.1);
+  --fg: #141414;
+  --muted: #55554f;
+  --faint: #86867f;
+  --accent: #ff5a1f;
+  --accent-2: #ffb020;
+  --grad: linear-gradient(120deg, #ff5a1f, #ffb020);
   --accent-fg: #ffffff;
-  --accent-ink: #6d3cf0;
-  --chart: #8b5cff;
+  --accent-ink: #cf4413;
+  --chart: #ff5a1f;
   --danger: #dc2626;
 }
 
 .dark {
-  --bg: #07060f;
-  --surface: #110f1f;
-  --surface-2: #1a1730;
-  --line: rgb(255 255 255 / 0.08);
-  --fg: #f5f3ff;
-  --muted: #a7a3bd;
-  --faint: #6f6a88;
-  --accent: #8b5cff;
-  --accent-2: #ff6ec7;
-  --grad: linear-gradient(120deg, #8b5cff, #ff6ec7);
+  --bg: #0d0d0f;
+  --surface: #151518;
+  --surface-2: #1d1d21;
+  --line: rgb(255 255 255 / 0.09);
+  --fg: #eeeeea;
+  --muted: #a3a39c;
+  --faint: #6f6f69;
+  --accent: #ff5a1f;
+  --accent-2: #ffb020;
+  --grad: linear-gradient(120deg, #ff5a1f, #ffb020);
   --accent-fg: #ffffff;
-  --accent-ink: #b9a0ff;
-  --chart: #8b5cff;
+  --accent-ink: #ff7a45;
+  --chart: #ff5a1f;
   --danger: #f87171;
 }
 
@@ -54,16 +59,16 @@
   --color-danger: var(--danger);
   --font-sans: var(--body-font);
   --font-display: var(--display-font);
-  /* JetBrains Mono has no Arabic glyphs; Arabic falls through to the body font, not a system monospace */
-  --font-mono: "JetBrains Mono", var(--body-font), ui-monospace, monospace;
+  /* system monospace: no extra font download */
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, var(--body-font), monospace;
   --radius-pill: var(--pill-radius);
 }
 
 /* overwritten at runtime from the dashboard settings (src/lib/settings.ts) */
 :root {
-  --body-font: "Inter", "Alexandria", ui-sans-serif, system-ui, sans-serif;
+  --body-font: "Manrope", "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
   --display-font: var(--body-font);
-  --heading-weight: 600;
+  --heading-weight: 700;
   --pill-radius: 9999px;
 }
 
@@ -78,7 +83,6 @@
   }
   body {
     @apply bg-bg text-fg font-sans antialiased;
-    transition: background-color 0.3s, color 0.3s;
   }
   h1,
   h2 {
@@ -99,19 +103,15 @@
   button:disabled {
     cursor: not-allowed;
   }
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
+  summary {
+    cursor: pointer;
+    list-style: none;
   }
-  to {
-    /* half the list plus half the gap, so the loop has no jump */
-    transform: translateX(calc(-50% - var(--marquee-gap, 6px)));
+  summary::-webkit-details-marker {
+    display: none;
   }
 }
 
-/* ---- aurora glass building blocks ---- */
 @utility text-grad {
   background-image: var(--grad);
   -webkit-background-clip: text;
@@ -121,28 +121,70 @@
 @utility bg-grad {
   background-image: var(--grad);
 }
-@utility glass {
-  background: color-mix(in oklab, var(--surface) 58%, transparent);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  backdrop-filter: blur(20px) saturate(150%);
-  border: 1px solid var(--line);
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* half the list plus half the gap, so the loop has no jump */
+    transform: translateX(calc(-50% - var(--marquee-gap, 6px)));
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+@keyframes drawer-in {
+  from {
+    transform: translateX(-100%);
+  }
 }
 
-@keyframes aurora-a {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(12%, 10%) scale(1.2); }
+/* ---- scroll reveal (src/site/Effects.tsx adds .is-in) ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
-@keyframes aurora-b {
-  0%, 100% { transform: translate(0, 0) scale(1.1); }
-  50% { transform: translate(-14%, 8%) scale(0.9); }
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
 }
-@keyframes aurora-c {
-  0%, 100% { transform: translate(0, 0) scale(0.95); }
-  50% { transform: translate(6%, -12%) scale(1.15); }
+
+/* hero entrance: pure CSS, runs once */
+.rise {
+  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-@keyframes float-y {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+/* scroll progress bar driven by the scroll position, no JS where supported */
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: grow-x linear both;
+    animation-timeline: scroll(root);
+  }
+  @keyframes grow-x {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
 }
 
 /* ---- blog article body (rendered markdown) ---- */
@@ -210,7 +252,7 @@
   overflow-x: auto;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 1.1em 1.25em;
 }
 .md pre code {
@@ -218,7 +260,7 @@
   padding: 0;
 }
 .md img {
-  border-radius: 16px;
+  border-radius: 14px;
   border: 1px solid var(--line);
 }
 .md table {
@@ -238,13 +280,28 @@
   background: var(--line);
 }
 
-/* "animations" switched off in the dashboard */
-html[data-motion="off"] [class*="animate-"] {
+/* "animations" switched off in the dashboard, or the visitor asked for less motion */
+html[data-motion="off"] [class*="animate-"],
+html[data-motion="off"] .rise {
   animation: none !important;
+}
+html[data-motion="off"] .reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .rise,
+  [class*="animate-"] {
+    animation: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

@@ -5,8 +5,7 @@
 export const SECTION_IDS = ["services", "work", "skills", "experience", "pricing", "testimonials", "faq", "blog", "booking", "contact"] as const;
 export type SectionId = (typeof SECTION_IDS)[number];
 
-export const HERO_3D = ["glass", "orb", "knot", "crystal", "rings", "torus", "none"] as const;
-export const BACKGROUNDS = ["aurora", "glow", "grid", "dots", "none"] as const;
+export const BACKGROUNDS = ["glow", "grid", "dots", "none"] as const;
 export const RADII = { none: 0, small: 0.5, medium: 1, large: 1.35, xl: 1.75 } as const;
 
 // weights each family actually ships, so the Google Fonts request never 400s
@@ -66,21 +65,11 @@ export type SiteSettings = {
   radius: keyof typeof RADII;
   pill_buttons: boolean;
 
-  // 3D & effects
-  hero_3d: (typeof HERO_3D)[number];
-  hero_3d_color: string;
-  hero_3d_wireframe: boolean;
-  hero_3d_speed: number;
-  hero_3d_interactive: boolean;
-  particles: boolean;
-  tilt_cards: boolean;
-  cursor_glow: boolean;
+  // effects (all CSS-only, so they cost next to nothing)
   scroll_progress: boolean;
   animations: boolean;
   marquee: boolean;
   background: (typeof BACKGROUNDS)[number];
-  grain: boolean;
-  magnetic_buttons: boolean;
   projects_view: "grid" | "list";
   projects_per_page: number;
   timezone: string;
@@ -145,37 +134,27 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   default_theme: "dark",
   default_lang: "EN",
 
-  accent: "#8b5cff",
-  accent_2: "#ff6ec7",
-  dark_bg: "#07060f",
-  dark_surface: "#110f1f",
-  dark_fg: "#f5f3ff",
-  light_bg: "#f6f4ff",
+  accent: "#ff5a1f",
+  accent_2: "#ffb020",
+  dark_bg: "#0d0d0f",
+  dark_surface: "#151518",
+  dark_fg: "#eeeeea",
+  light_bg: "#f7f6f2",
   light_surface: "#ffffff",
-  light_fg: "#15121f",
+  light_fg: "#141414",
 
-  font_latin: "Inter",
-  font_arabic: "Alexandria",
-  font_heading: "Bricolage Grotesque",
+  font_latin: "Manrope",
+  font_arabic: "IBM Plex Sans Arabic",
+  font_heading: "Manrope",
   base_font_size: 16,
-  heading_weight: 600,
-  radius: "large",
+  heading_weight: 700,
+  radius: "medium",
   pill_buttons: true,
 
-  hero_3d: "glass",
-  hero_3d_color: "",
-  hero_3d_wireframe: false,
-  hero_3d_speed: 1,
-  hero_3d_interactive: true,
-  particles: true,
-  tilt_cards: true,
-  cursor_glow: true,
   scroll_progress: true,
   animations: true,
   marquee: true,
-  background: "aurora",
-  grain: true,
-  magnetic_buttons: true,
+  background: "grid",
   projects_view: "grid",
   projects_per_page: 7,
   timezone: "Africa/Cairo",
@@ -291,6 +270,8 @@ export function mergeSettings(data: Partial<SiteSettings> | null | undefined): S
   const at = order.indexOf("contact");
   s.section_order = at === -1 ? [...order, ...missing] : [...order.slice(0, at), ...missing, ...order.slice(at)];
   s.hidden_sections = (s.hidden_sections || []).filter((id) => (SECTION_IDS as readonly string[]).includes(id));
+  // the old animated "aurora" background is gone; its closest light-weight match is "glow"
+  if (!(BACKGROUNDS as readonly string[]).includes(s.background)) s.background = "glow";
   return s;
 }
 
@@ -313,7 +294,7 @@ export function themeCss(s: SiteSettings) {
   const lum = luminance(accent);
   const accentFg = lum > 0.4 ? "#111113" : "#ffffff";
   // bright accents get a darker step for text and chart marks so they stay readable
-  const inkLight = lum > 0.3 ? `color-mix(in oklab, ${accent} 55%, black)` : accent;
+  const inkLight = lum > 0.3 ? `color-mix(in oklab, ${accent} 55%, black)` : lum > 0.15 ? `color-mix(in oklab, ${accent} 80%, black)` : accent;
   const inkDark = lum < 0.15 ? `color-mix(in oklab, ${accent} 60%, white)` : accent;
   const chart = lum > 0.45 ? `color-mix(in oklab, ${accent} 72%, black)` : accent;
 
@@ -352,6 +333,7 @@ export function themeCss(s: SiteSettings) {
 }`;
 }
 
+/** one request, only the families in use, never the 300 weight (nothing on the site uses it) */
 export function fontsHref(s: SiteSettings) {
   const families = new Map<string, string>();
   for (const [name, list] of [
@@ -359,8 +341,8 @@ export function fontsHref(s: SiteSettings) {
     [s.font_heading, LATIN_FONTS],
     [s.font_arabic, ARABIC_FONTS],
   ] as const) {
-    if (list[name]) families.set(name, list[name]);
+    if (list[name]) families.set(name, list[name].split(";").filter((w) => w !== "300").join(";"));
   }
   const q = [...families].map(([name, w]) => `family=${name.replace(/ /g, "+")}:wght@${w}`).join("&");
-  return `https://fonts.googleapis.com/css2?${q}&family=JetBrains+Mono:wght@400;500&display=swap`;
+  return `https://fonts.googleapis.com/css2?${q}&display=swap`;
 }

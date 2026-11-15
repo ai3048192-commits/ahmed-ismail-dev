@@ -24,6 +24,7 @@ import {
   UserRound,
   X,
 } from "lucide-react";
+import { Toaster } from "react-hot-toast";
 import { usePrefs } from "../lib/prefs";
 import { supabase } from "../lib/supabase";
 import Bookings from "./Bookings";
@@ -64,7 +65,7 @@ const GROUPS = [
   {
     title: "الشكل",
     items: [
-      { to: "/admin/design", label: "شكل الموقع و 3D", Icon: Palette },
+      { to: "/admin/design", label: "شكل الموقع", Icon: Palette },
       { to: "/admin/seo", label: "SEO ومحركات البحث", Icon: Search },
     ],
   },
@@ -101,6 +102,15 @@ export default function AdminApp() {
     document.title = "لوحة التحكم";
   }, []);
 
+  const toaster = (
+    <Toaster
+      position="bottom-center"
+      toastOptions={{
+        style: { background: "var(--surface)", color: "var(--fg)", border: "1px solid var(--line)", fontFamily: "var(--font-sans)", fontSize: "14px" },
+      }}
+    />
+  );
+
   if (admin.status === "loading") {
     return (
       <div dir="rtl" lang="ar" className="min-h-screen grid place-items-center text-faint">
@@ -112,6 +122,7 @@ export default function AdminApp() {
     return (
       <div dir="rtl" lang="ar">
         <Login />
+        {toaster}
       </div>
     );
   }
@@ -167,10 +178,11 @@ export default function AdminApp() {
 
   return (
     <div dir="rtl" lang="ar" className="min-h-screen lg:grid lg:grid-cols-[272px_1fr]">
+      {toaster}
       <aside className="hidden lg:block p-3">
         <div className="sticky top-3 flex h-[calc(100vh-1.5rem)] flex-col rounded-3xl border border-line bg-surface p-4 overflow-y-auto">
           <div className="flex items-center gap-3 px-2 pb-6">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-accent text-accent-fg font-display font-bold">AI</span>
+            <span className="grid h-10 w-10 place-items-center rounded-full bg-fg text-bg font-display font-bold">AI</span>
             <span>
               <span className="block font-display font-semibold leading-tight">لوحة التحكم</span>
               <span className="block text-[11px] text-faint">إدارة الموقع كله</span>
@@ -183,7 +195,7 @@ export default function AdminApp() {
 
       <div className="min-w-0">
         <header className="sticky top-0 z-30 px-3 pt-3">
-          <div className="flex h-14 items-center gap-3 rounded-2xl border border-line bg-bg/75 backdrop-blur-xl px-3 sm:px-4">
+          <div className="flex h-14 items-center gap-3 rounded-2xl border border-line bg-bg/95 px-3 sm:px-4">
             <button type="button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="القائمة" className="lg:hidden relative p-2 rounded-lg hover:bg-surface-2">
               {menuOpen ? <X size={19} /> : <Menu size={19} />}
               {!menuOpen && unread > 0 && <span className="absolute top-1.5 end-1.5 h-2 w-2 rounded-full bg-accent" />}

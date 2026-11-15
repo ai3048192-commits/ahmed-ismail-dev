@@ -1,8 +1,7 @@
-import { useMemo } from "react";
+import { Suspense, lazy, useMemo } from "react";
 import type { SectionId } from "../lib/settings";
 import { useSettings } from "../lib/site-settings";
 import BlogPreview from "./BlogPreview";
-import Booking from "./Booking";
 import Contact from "./Contact";
 import Experience from "./Experience";
 import Faq from "./Faq";
@@ -15,6 +14,9 @@ import Skills from "./Skills";
 import Testimonials from "./Testimonials";
 import { useSite } from "./SiteData";
 import { visibleSections } from "./sections";
+
+// the booking calendar is the heaviest section and sits near the bottom: its own chunk
+const Booking = lazy(() => import("./Booking"));
 
 export default function Portfolio() {
   const { settings: s } = useSettings();
@@ -41,7 +43,11 @@ export default function Portfolio() {
       case "blog":
         return <BlogPreview key={id} posts={data.posts} index={num(id)} />;
       case "booking":
-        return <Booking key={id} index={num(id)} />;
+        return (
+          <Suspense key={id} fallback={<div className="min-h-[640px]" />}>
+            <Booking index={num(id)} />
+          </Suspense>
+        );
       case "contact":
         return <Contact key={id} profile={data.profile} index={num(id)} />;
     }

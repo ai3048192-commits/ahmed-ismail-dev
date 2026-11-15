@@ -32,6 +32,7 @@ const SECTION_AR: Record<SectionId, string> = {
 const WEEKDAYS = ["الأحد", "الاتنين", "التلات", "الأربع", "الخميس", "الجمعة", "السبت"];
 
 const ACCENTS = [
+  { name: "برتقالي ناري", value: "#ff5a1f" },
   { name: "بنفسجي", value: "#8b5cff" },
   { name: "ليموني", value: "#c8f169" },
   { name: "أزرق", value: "#3b82f6" },
@@ -45,7 +46,8 @@ const ACCENTS = [
 
 // whole-site palettes: one click sets both gradient colors and the backgrounds
 const PALETTES: { name: string; values: Partial<SiteSettings> }[] = [
-  { name: "الشفق (الافتراضي)", values: { accent: "#8b5cff", accent_2: "#ff6ec7", dark_bg: "#07060f", dark_surface: "#110f1f", light_bg: "#f6f4ff", light_surface: "#ffffff" } },
+  { name: "حبر وبرتقالي (الافتراضي)", values: { accent: "#ff5a1f", accent_2: "#ffb020", dark_bg: "#0d0d0f", dark_surface: "#151518", light_bg: "#f7f6f2", light_surface: "#ffffff" } },
+  { name: "الشفق", values: { accent: "#8b5cff", accent_2: "#ff6ec7", dark_bg: "#07060f", dark_surface: "#110f1f", light_bg: "#f6f4ff", light_surface: "#ffffff" } },
   { name: "المحيط", values: { accent: "#22d3ee", accent_2: "#6366f1", dark_bg: "#04101a", dark_surface: "#0b1b2b", light_bg: "#effaff", light_surface: "#ffffff" } },
   { name: "الغروب", values: { accent: "#f97316", accent_2: "#ec4899", dark_bg: "#140807", dark_surface: "#22120f", light_bg: "#fff6f1", light_surface: "#ffffff" } },
   { name: "النعناع", values: { accent: "#10b981", accent_2: "#22d3ee", dark_bg: "#04110d", dark_surface: "#0b1d18", light_bg: "#effcf7", light_surface: "#ffffff" } },
@@ -105,57 +107,21 @@ const DESIGN_TABS: Tab[] = [
   { id: "colors", label: "الألوان", custom: "colors" },
   { id: "fonts", label: "الخطوط والأشكال", custom: "fonts" },
   {
-    id: "3d",
-    label: "الـ 3D والتأثيرات",
+    id: "effects",
+    label: "التأثيرات",
     sections: [
       {
-        title: "المجسم الـ 3D في أول الصفحة",
+        title: "الحركة والخلفية",
         fields: [
-          {
-            key: "hero_3d",
-            label: "الشكل",
-            type: "select",
-            half: true,
-            options: [
-              { value: "glass", label: "زجاج شفاف (بيكسر الضوء)" },
-              { value: "orb", label: "كرة متموجة" },
-              { value: "knot", label: "عقدة" },
-              { value: "torus", label: "حلقة دونات" },
-              { value: "crystal", label: "كريستالة" },
-              { value: "rings", label: "حلقات مدارية" },
-              { value: "none", label: "من غير 3D" },
-            ],
-          },
-          { key: "hero_3d_color", label: "لون المجسم", hint: "لو فاضي بياخد اللون الأساسي", type: "color", half: true },
-          {
-            key: "hero_3d_speed",
-            label: "السرعة",
-            type: "select",
-            numeric: true,
-            half: true,
-            options: [{ value: "0.4", label: "بطيء" }, { value: "1", label: "عادي" }, { value: "1.8", label: "سريع" }],
-          },
-          yes("شكل سلكي (Wireframe)", "hero_3d_wireframe"),
-          yes("يتحرك مع الماوس", "hero_3d_interactive"),
-          yes("نجوم/جزيئات حوالين المجسم", "particles"),
-        ],
-      },
-      {
-        title: "التأثيرات",
-        fields: [
-          yes("الكروت بتميل 3D مع الماوس", "tilt_cards"),
-          yes("إضاءة بتتبع الماوس", "cursor_glow"),
-          yes("شريط التقدم أثناء النزول", "scroll_progress"),
           yes("الحركات والأنيميشن", "animations", "لو قفلتها الموقع كله بيبقى ثابت"),
+          yes("شريط التقدم أثناء النزول", "scroll_progress"),
           yes("شريط المهارات المتحرك", "marquee"),
-          yes("ملمس حبيبي خفيف (Grain)", "grain", "بيدي الخلفية إحساس مطبوع"),
-          yes("الزراير بتنجذب للماوس", "magnetic_buttons"),
           {
             key: "background",
-            label: "خلفية الصفحة",
+            label: "خلفية أول الصفحة",
             type: "select",
             half: true,
-            options: [{ value: "aurora", label: "شفق متحرك" }, { value: "glow", label: "توهج" }, { value: "grid", label: "شبكة" }, { value: "dots", label: "نقط" }, { value: "none", label: "سادة" }],
+            options: [{ value: "grid", label: "شبكة" }, { value: "dots", label: "نقط" }, { value: "glow", label: "توهج خفيف" }, { value: "none", label: "سادة" }],
           },
         ],
       },

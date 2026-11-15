@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { CalendarCheck, CalendarPlus, Check, ChevronLeft, ChevronRight, Clock, Globe, Loader2, Moon, Pencil, RotateCcw, Sun, Sunset } from "lucide-react";
 import { availableDays } from "../lib/booking";
 import { usePrefs } from "../lib/prefs";
@@ -7,10 +6,10 @@ import { useSettings } from "../lib/site-settings";
 import { pingNotify, supabase, track } from "../lib/supabase";
 import { Monogram } from "./Header";
 import { useSite } from "./SiteData";
-import { btn } from "./styles";
+import { btn, field as baseField } from "./styles";
 import { Section, SectionHeading } from "./ui";
 
-const field = "w-full rounded-2xl border border-line bg-bg/60 px-4 py-3 text-fg placeholder:text-faint outline-none transition-colors focus:border-accent";
+const field = `${baseField} !py-3`;
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
 
 /** a visitor-local calendar date, so the grid matches the visitor's own days */
@@ -37,14 +36,14 @@ function Steps({ step }: { step: 1 | 2 | 3 }) {
             <span className={`flex items-center gap-2 text-xs sm:text-sm ${on ? "text-fg font-medium" : done ? "text-muted" : "text-faint"}`}>
               <span
                 className={`grid h-6 w-6 place-items-center rounded-full text-[11px] font-semibold transition-all ${
-                  done ? "bg-grad text-white" : on ? "bg-grad text-white shadow-[0_6px_18px_-6px_var(--accent)]" : "border border-line"
+                  done ? "bg-fg text-bg" : on ? "bg-accent text-accent-fg" : "border border-line"
                 }`}
               >
                 {done ? <Check size={12} strokeWidth={3} /> : n}
               </span>
               {label}
             </span>
-            {n < 3 && <span className={`h-px w-4 sm:w-8 ${done ? "bg-grad" : "bg-line"}`} aria-hidden />}
+            {n < 3 && <span className={`h-px w-4 sm:w-8 ${done ? "bg-fg" : "bg-line"}`} aria-hidden />}
           </li>
         );
       })}
@@ -86,7 +85,7 @@ export default function Booking({ index }: { index: string }) {
     return m;
   }, [s, taken]);
   const firstDay = byDay.values().next().value?.[0] as Date | undefined;
-  const lastDay = [...byDay.values()].at(-1)?.[0];
+  const lastDay = [...byDay.values()].pop()?.[0];
   const shownMonth = month || firstDay || new Date();
   const selectedKey = dayKey && byDay.has(dayKey) ? dayKey : "";
   const daySlots = selectedKey ? byDay.get(selectedKey)! : [];
@@ -158,21 +157,13 @@ export default function Booking({ index }: { index: string }) {
   return (
     <Section id="booking">
       <SectionHeading section="booking" index={index} />
-      <div className="glass relative mx-auto max-w-6xl overflow-hidden rounded-[2rem]">
-        <div aria-hidden className="absolute -top-32 -end-32 h-72 w-72 rounded-full bg-grad opacity-20 blur-[90px]" />
-
-        <AnimatePresence mode="wait">
+      <div className="relative overflow-hidden rounded-3xl border border-line bg-surface">
           {status === "done" && slot ? (
-            <motion.div key="done" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} role="status" className="relative px-6 py-16 sm:py-20 text-center">
-              <motion.span
-                initial={{ scale: 0.5, rotate: -20 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ type: "spring", stiffness: 260, damping: 16 }}
-                className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-grad text-white shadow-[0_24px_60px_-18px_var(--accent)]"
-              >
+            <div role="status" className="relative px-6 py-16 sm:py-20 text-center animate-[rise-in_.4s_ease-out]">
+              <span className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-accent text-accent-fg">
                 <CalendarCheck size={34} />
-              </motion.span>
-              <h3 className="mt-7 font-display text-3xl sm:text-4xl tracking-tight">{pick("You're booked!", "الحجز اتسجل!")}</h3>
+              </span>
+              <h3 className="mt-7 font-display font-bold text-3xl sm:text-4xl tracking-tight">{pick("You're booked!", "الحجز اتسجل!")}</h3>
               <p className="mt-3 text-lg">{when(slot)}</p>
               <p className="mt-1 text-sm text-muted">
                 {minutes} {pick("minutes with", "دقيقة مع")} {name}
@@ -186,9 +177,9 @@ export default function Booking({ index }: { index: string }) {
                   <RotateCcw size={15} /> {pick("Book another time", "احجز ميعاد تاني")}
                 </button>
               </div>
-            </motion.div>
+            </div>
           ) : (
-            <motion.div key="form" className="relative">
+            <div className="relative">
               {/* who / how long / which timezone, plus where you are in the flow */}
               <div className="flex flex-wrap items-center justify-between gap-5 border-b border-line px-5 sm:px-8 py-5">
                 <div className="flex items-center gap-3.5">
@@ -217,7 +208,7 @@ export default function Booking({ index }: { index: string }) {
                   {/* 1. calendar */}
                   <div className="p-5 sm:p-7 lg:border-e border-line">
                     <div className="flex items-center justify-between">
-                      <p className="font-display text-lg">{shownMonth.toLocaleDateString(locale, { month: "long", year: "numeric" })}</p>
+                      <p className="font-display font-bold text-lg">{shownMonth.toLocaleDateString(locale, { month: "long", year: "numeric" })}</p>
                       <div className="flex gap-1">
                         <button type="button" disabled={!canPrev} onClick={() => shiftMonth(-1)} aria-label={pick("Previous month", "الشهر اللي فات")} className={`${btn.icon} !h-9 !w-9 disabled:opacity-30`}>
                           {isAr ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
@@ -252,14 +243,14 @@ export default function Booking({ index }: { index: string }) {
                             }}
                             className={`relative aspect-square rounded-xl text-sm tabular-nums transition-all ${
                               on
-                                ? "bg-grad text-white font-semibold shadow-[0_10px_24px_-10px_var(--accent)]"
+                                ? "bg-fg text-bg font-semibold"
                                 : open
-                                  ? "bg-surface-2/70 text-fg font-medium hover:bg-surface-2 hover:-translate-y-0.5"
+                                  ? "bg-surface-2 text-fg font-medium hover:ring-1 hover:ring-inset hover:ring-fg/30"
                                   : "text-faint/50 cursor-default"
                             }`}
                           >
                             {d.toLocaleDateString(locale, { day: "numeric" })}
-                            {open && !on && <span aria-hidden className="absolute bottom-1.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-grad" />}
+                            {open && !on && <span aria-hidden className="absolute bottom-1.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-accent" />}
                             {today && !on && <span aria-hidden className="absolute inset-0 rounded-xl ring-1 ring-inset ring-accent/50" />}
                           </button>
                         );
@@ -277,8 +268,8 @@ export default function Booking({ index }: { index: string }) {
                         </div>
                       </div>
                     ) : (
-                      <motion.div key={selectedKey} initial={{ opacity: 0, x: isAr ? -12 : 12 }} animate={{ opacity: 1, x: 0 }}>
-                        <p className="font-display text-lg">{daySlots[0].toLocaleDateString(locale, { weekday: "long", day: "numeric", month: "long" })}</p>
+                      <div key={selectedKey} className="animate-[fade-in_.25s_ease-out]">
+                        <p className="font-display font-bold text-lg">{daySlots[0].toLocaleDateString(locale, { weekday: "long", day: "numeric", month: "long" })}</p>
                         <p className="mt-1 text-xs text-faint">
                           {daySlots.length} {pick("open times", "ميعاد متاح")}
                         </p>
@@ -299,7 +290,7 @@ export default function Booking({ index }: { index: string }) {
                                       aria-selected={on}
                                       onClick={() => pickSlot(t)}
                                       className={`rounded-xl py-2.5 text-sm tabular-nums transition-all ${
-                                        on ? "bg-grad text-white font-semibold shadow-[0_10px_24px_-10px_var(--accent)]" : "border border-line text-muted hover:text-fg hover:border-accent/60"
+                                        on ? "bg-fg text-bg font-semibold" : "border border-line text-muted hover:text-fg hover:border-fg/30"
                                       }`}
                                     >
                                       {t.toLocaleTimeString(locale, { hour: "numeric", minute: "2-digit" })}
@@ -310,17 +301,17 @@ export default function Booking({ index }: { index: string }) {
                             </div>
                           ))}
                         </div>
-                      </motion.div>
+                      </div>
                     )}
                   </div>
 
                   {/* 3. details */}
                   <form ref={formRef} onSubmit={submit} className="p-5 sm:p-7 border-t lg:border-t-0 border-line scroll-mt-28">
-                    <div className={`rounded-2xl p-4 transition-colors ${slot ? "bg-grad text-white" : "border border-dashed border-line"}`}>
+                    <div className={`rounded-2xl p-4 transition-colors ${slot ? "bg-accent text-accent-fg" : "border border-dashed border-line"}`}>
                       {slot ? (
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <p className="text-xs text-white/75">{pick("Your call", "مكالمتك")}</p>
+                            <p className="text-xs opacity-75">{pick("Your call", "مكالمتك")}</p>
                             <p className="mt-1 font-semibold leading-snug">{when(slot)}</p>
                           </div>
                           <button type="button" onClick={() => setSlot(null)} aria-label={pick("Change time", "غيّر الميعاد")} className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/20 hover:bg-white/30">
@@ -351,9 +342,8 @@ export default function Booking({ index }: { index: string }) {
                   </form>
                 </div>
               )}
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
       </div>
     </Section>
   );

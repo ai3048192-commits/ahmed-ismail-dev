@@ -6,7 +6,7 @@ import type { Profile } from "../lib/types";
 import { waLink } from "./useSiteData";
 import { Reveal } from "./Effects";
 import { Section, SectionHeading } from "./ui";
-import { btn, tile } from "./styles";
+import { btn, field, tile } from "./styles";
 
 const TOPICS = [
   { value: "project", en: "A web project", ar: "مشروع ويب" },
@@ -23,8 +23,6 @@ type Field = keyof Form;
 const emptyForm: Form = { name: "", email: "", topic: "project", message: "" };
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
 
-const field =
-  "w-full rounded-2xl border border-line bg-bg/60 px-4 py-3.5 text-fg placeholder:text-faint outline-none transition-colors focus:border-accent";
 
 export default function Contact({ profile, index }: { profile: Profile; index: string }) {
   const { pick, isAr } = usePrefs();
@@ -116,10 +114,10 @@ export default function Contact({ profile, index }: { profile: Profile; index: s
               href={`mailto:${profile.email}`}
               onClick={() => track("email_click", "contact")}
               dir="ltr"
-              className="group relative font-display text-[clamp(1.6rem,6vw,5rem)] leading-none tracking-tight break-all text-grad"
+              className="group relative font-display font-bold text-[clamp(1.6rem,6vw,5rem)] leading-none tracking-[-0.04em] break-all text-fg transition-colors hover:text-accent-ink"
             >
               {profile.email}
-              <span aria-hidden className="absolute -bottom-2 left-0 h-[3px] w-full origin-left scale-x-0 bg-grad transition-transform duration-500 group-hover:scale-x-100" />
+              <span aria-hidden className="absolute -bottom-2 left-0 h-[3px] w-full origin-left scale-x-0 bg-accent transition-transform duration-500 group-hover:scale-x-100" />
             </a>
             <button type="button" onClick={copyEmail} className={btn.icon} aria-label={pick("Copy address", "انسخ العنوان")}>
               {copied ? <Check size={16} /> : <Copy size={16} />}
@@ -136,7 +134,7 @@ export default function Contact({ profile, index }: { profile: Profile; index: s
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => track("whatsapp_click", "contact")}
-              className="group relative overflow-hidden rounded-3xl bg-grad text-white p-7 flex flex-1 flex-col justify-between gap-12 min-h-[240px] shadow-[0_30px_70px_-30px_var(--accent)]"
+              className="group relative overflow-hidden rounded-3xl bg-accent text-accent-fg p-7 flex flex-1 flex-col justify-between gap-12 min-h-[240px]"
             >
               <span aria-hidden className="absolute -end-10 -bottom-10 h-48 w-48 rounded-full bg-white/15 transition-transform duration-700 group-hover:scale-150" />
               <span className="relative flex items-center justify-between">
@@ -145,7 +143,7 @@ export default function Contact({ profile, index }: { profile: Profile; index: s
               </span>
               <span className="relative">
                 <span className="block text-sm opacity-70">{pick("Fastest reply", "أسرع رد")}</span>
-                <span className="block font-display text-4xl tracking-tight mt-1">WhatsApp</span>
+                <span className="block font-display font-bold text-4xl tracking-tight mt-1">WhatsApp</span>
                 <span className="block font-mono text-sm mt-2 opacity-80" dir="ltr">
                   +{profile.whatsapp.replace(/\D/g, "")}
                 </span>
@@ -153,7 +151,7 @@ export default function Contact({ profile, index }: { profile: Profile; index: s
             </a>
           )}
           <div className={`${tile} p-7`}>
-            <Mail size={22} className="text-accent-ink" />
+            <Mail size={22} className="text-accent-ink" aria-hidden />
             <p className="mt-6 text-sm text-muted leading-relaxed">{pick(profile.reply_time_en, profile.reply_time_ar)}</p>
           </div>
         </div>
@@ -161,7 +159,7 @@ export default function Contact({ profile, index }: { profile: Profile; index: s
         <form onSubmit={submit} noValidate className={`${tile} p-6 sm:p-10`}>
           {status === "sent" ? (
             <div role="status" className="h-full min-h-[380px] flex flex-col items-center justify-center text-center gap-4">
-              <span className="grid h-14 w-14 place-items-center rounded-full bg-grad text-white">
+              <span className="grid h-14 w-14 place-items-center rounded-full bg-accent text-accent-fg">
                 <Check size={26} />
               </span>
               <p className="text-xl font-semibold">{pick("Message sent.", "الرسالة وصلت.")}</p>
@@ -179,7 +177,7 @@ export default function Contact({ profile, index }: { profile: Profile; index: s
                     <label
                       key={t.value}
                       className={`cursor-pointer rounded-pill border px-4 py-2 text-sm transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-chart ${
-                        form.topic === t.value ? "bg-grad text-white border-transparent" : "border-line text-muted hover:text-fg"
+                        form.topic === t.value ? "bg-fg text-bg border-fg" : "border-line text-muted hover:text-fg"
                       }`}
                     >
                       <input type="radio" name="topic" value={t.value} checked={form.topic === t.value} onChange={set("topic")} className="sr-only" />

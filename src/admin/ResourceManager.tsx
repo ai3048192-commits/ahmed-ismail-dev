@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { ArrowDown, ArrowUp, Copy, Loader2, Pencil, Plus, Search, Trash2, X } from "lucide-react";
 import toast from "react-hot-toast";
 import { supabase } from "../lib/supabase";
@@ -212,20 +211,15 @@ export default function ResourceManager({ config }: { config: ResourceConfig }) 
         </ul>
       )}
 
-      <AnimatePresence>
-        {editing && (
+      {editing && (
           <div className="fixed inset-0 z-50 flex justify-end">
-            <motion.div className="absolute inset-0 bg-black/60" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => !saving && setEditing(null)} />
-            <motion.form
+            <div className="absolute inset-0 bg-black/60 animate-[fade-in_.2s_ease-out]" onClick={() => !saving && setEditing(null)} />
+            <form
               onSubmit={(e) => {
                 e.preventDefault();
                 save();
               }}
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ type: "spring", stiffness: 380, damping: 40 }}
-              className="relative h-full w-full max-w-2xl bg-surface border-s border-line flex flex-col"
+              className="relative h-full w-full max-w-2xl bg-surface border-s border-line flex flex-col animate-[drawer-in_.3s_cubic-bezier(.22,1,.36,1)]"
             >
               <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-line">
                 <h2 className="font-semibold">{editing.id ? `تعديل ${config.singular}` : `${config.singular} جديد`}</h2>
@@ -245,10 +239,9 @@ export default function ResourceManager({ config }: { config: ResourceConfig }) 
                   حفظ
                 </button>
               </div>
-            </motion.form>
+            </form>
           </div>
         )}
-      </AnimatePresence>
     </div>
   );
 }

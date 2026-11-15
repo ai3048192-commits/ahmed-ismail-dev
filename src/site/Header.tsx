@@ -1,14 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Megaphone, Menu, Moon, Sun, X } from "lucide-react";
 import { usePrefs } from "../lib/prefs";
 import type { SectionId } from "../lib/settings";
 import { useSettings } from "../lib/site-settings";
 import type { Profile } from "../lib/types";
-import { Magnetic } from "./Effects";
 import { btn } from "./styles";
-import { useMotionOK } from "./useMotionOK";
 
 /* ------------------------------------------------------------------ */
 /* Config                                                              */
@@ -35,7 +32,7 @@ const focusRing = "focus-visible:outline-none focus-visible:ring-2 focus-visible
 /* Hooks                                                               */
 /* ------------------------------------------------------------------ */
 
-function useScrolled(threshold = 24) {
+function useScrolled(threshold = 12) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > threshold);
@@ -83,7 +80,7 @@ function useMenuBehaviour(open: boolean, close: () => void) {
 
 export function Monogram({ profile, size = 36 }: { profile: Profile; size?: number }) {
   if (profile.logo_url) {
-    return <img src={profile.logo_url} alt="" width={size} height={size} className="rounded-xl object-cover" style={{ width: size, height: size }} />;
+    return <img src={profile.logo_url} alt="" width={size} height={size} className="rounded-full object-cover" style={{ width: size, height: size }} />;
   }
   const initials = profile.full_name_en
     .split(/\s+/)
@@ -91,11 +88,7 @@ export function Monogram({ profile, size = 36 }: { profile: Profile; size?: numb
     .map((w) => w[0])
     .join("");
   return (
-    <span
-      className="grid place-items-center rounded-xl bg-grad text-white font-display font-bold text-sm shadow-[0_8px_24px_-10px_var(--accent)]"
-      style={{ width: size, height: size }}
-      aria-hidden
-    >
+    <span className="grid shrink-0 place-items-center rounded-full bg-fg text-bg font-display font-bold" style={{ width: size, height: size, fontSize: size * 0.36 }} aria-hidden>
       {initials || "AI"}
     </span>
   );
@@ -114,7 +107,7 @@ export function AnnouncementBar() {
       {s.announce_link && <ArrowUpRight size={14} className="shrink-0 rtl:-scale-x-100" aria-hidden />}
     </>
   );
-  const cls = "flex h-9 items-center justify-center gap-2 bg-grad px-4 text-xs font-medium text-white sm:text-sm";
+  const cls = "flex h-9 items-center justify-center gap-2 bg-accent px-4 text-xs font-medium text-accent-fg sm:text-sm";
   const internal = s.announce_link?.startsWith("#") || s.announce_link?.startsWith("/");
 
   return s.announce_link ? (
@@ -141,7 +134,7 @@ function Controls() {
         <button
           type="button"
           onClick={() => setLang(lang === "EN" ? "AR" : "EN")}
-          className={`${btn.icon} font-mono text-xs`}
+          className={`${btn.icon} !h-9 !w-9 text-xs font-semibold`}
           aria-label={isAr ? "Switch to English" : "التبديل للعربية"}
         >
           {lang === "EN" ? "ع" : "EN"}
@@ -151,10 +144,10 @@ function Controls() {
         <button
           type="button"
           onClick={() => setIsDark(!isDark)}
-          className={btn.icon}
+          className={`${btn.icon} !h-9 !w-9`}
           aria-label={isDark ? pick("Light theme", "الوضع الفاتح") : pick("Dark theme", "الوضع الداكن")}
         >
-          {isDark ? <Sun size={16} /> : <Moon size={16} />}
+          {isDark ? <Sun size={15} /> : <Moon size={15} />}
         </button>
       )}
     </div>
@@ -175,15 +168,14 @@ function HireButton({ base, sections, className = "" }: { base: string; sections
 
 function DesktopNav({ ids, base, active, hasBlog }: { ids: SectionId[]; base: string; active: string; hasBlog: boolean }) {
   const { isAr, pick } = usePrefs();
-  const link = `relative rounded-lg px-3.5 py-2 text-sm transition-colors ${focusRing}`;
+  const link = `relative rounded-pill px-3.5 py-1.5 text-sm transition-colors ${focusRing}`;
   return (
-    <nav aria-label={pick("Main", "القائمة الرئيسية")} className="hidden items-center gap-1 lg:flex">
+    <nav aria-label={pick("Main", "القائمة الرئيسية")} className="hidden items-center gap-0.5 rounded-pill border border-line bg-surface p-1 lg:flex">
       {ids.map((id) => {
         const on = active === id;
         return (
-          <a key={id} href={`${base}#${id}`} aria-current={on ? "true" : undefined} className={`${link} ${on ? "text-fg" : "text-muted hover:text-fg"}`}>
+          <a key={id} href={`${base}#${id}`} aria-current={on ? "true" : undefined} className={`${link} ${on ? "bg-fg text-bg" : "text-muted hover:text-fg"}`}>
             {isAr ? LABELS[id].ar : LABELS[id].en}
-            {on && <motion.span layoutId="nav-underline" className="absolute inset-x-3.5 -bottom-px h-0.5 rounded-full bg-accent" transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
           </a>
         );
       })}
@@ -196,50 +188,31 @@ function DesktopNav({ ids, base, active, hasBlog }: { ids: SectionId[]; base: st
   );
 }
 
-function MobileMenu({
-  sections,
-  base,
-  hasBlog,
-  hasAnnounce,
-  close,
-}: {
-  sections: SectionId[];
-  base: string;
-  hasBlog: boolean;
-  hasAnnounce: boolean;
-  close: () => void;
-}) {
+function MobileMenu({ sections, base, hasBlog, hasAnnounce, close }: { sections: SectionId[]; base: string; hasBlog: boolean; hasAnnounce: boolean; close: () => void }) {
   const { isAr, pick } = usePrefs();
-  const motionOK = useMotionOK();
   const row = `flex items-center justify-between gap-4 border-b border-line py-4 ${focusRing}`;
 
   return (
-    <motion.nav
-      initial={motionOK ? { opacity: 0 } : false}
-      animate={{ opacity: 1 }}
-      exit={motionOK ? { opacity: 0 } : undefined}
-      transition={{ duration: 0.2 }}
+    <nav
       aria-label={pick("Main", "القائمة الرئيسية")}
-      className={`fixed inset-0 z-40 flex flex-col overflow-y-auto bg-bg/95 px-6 pb-8 backdrop-blur-2xl lg:hidden ${hasAnnounce ? "pt-40" : "pt-32"}`}
+      className={`fixed inset-0 z-40 flex flex-col overflow-y-auto bg-bg px-6 pb-8 lg:hidden animate-[fade-in_.2s_ease-out] ${hasAnnounce ? "pt-32" : "pt-24"}`}
     >
       <ul className="flex-1">
         {sections.map((id, i) => (
-          <motion.li
-            key={id}
-            initial={motionOK ? { opacity: 0, y: 12 } : false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.03 * i, duration: 0.3 }}
-          >
+          <li key={id}>
             <a href={`${base}#${id}`} onClick={close} className={row}>
-              <span className="font-display text-3xl tracking-tight">{isAr ? LABELS[id].ar : LABELS[id].en}</span>
+              <span className="flex items-baseline gap-4">
+                <span className="font-mono text-xs text-faint">{String(i + 1).padStart(2, "0")}</span>
+                <span className="font-display text-3xl font-semibold tracking-tight">{isAr ? LABELS[id].ar : LABELS[id].en}</span>
+              </span>
               <ArrowUpRight size={20} className="text-faint rtl:-scale-x-100" aria-hidden />
             </a>
-          </motion.li>
+          </li>
         ))}
         {hasBlog && (
           <li>
             <Link to="/blog" onClick={close} className={row}>
-              <span className="font-display text-3xl tracking-tight">{pick("All articles", "كل المقالات")}</span>
+              <span className="font-display text-3xl font-semibold tracking-tight">{pick("All articles", "كل المقالات")}</span>
               <ArrowUpRight size={20} className="text-faint rtl:-scale-x-100" aria-hidden />
             </Link>
           </li>
@@ -252,7 +225,7 @@ function MobileMenu({
         </div>
         <Controls />
       </div>
-    </motion.nav>
+    </nav>
   );
 }
 
@@ -280,16 +253,12 @@ export default function Header({ profile, sections, base = "", hasBlog = false }
         <AnnouncementBar />
       </div>
 
-      <div className={`relative z-50 px-3 transition-[padding] duration-300 sm:px-6 ${scrolled ? "pt-3" : "pt-5"}`}>
-        <div
-          className={`mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto] items-center gap-4 rounded-2xl border px-3 transition-[background-color,border-color,box-shadow] duration-300 lg:grid-cols-[1fr_auto_1fr] ${
-            solid ? "border-line bg-bg/75 shadow-[0_20px_60px_-35px_var(--accent)] backdrop-blur-xl" : "border-transparent"
-          }`}
-        >
+      <div className={`relative z-50 border-b transition-colors duration-300 ${solid ? "border-line bg-bg/95" : "border-transparent"}`}>
+        <div className="mx-auto grid h-16 max-w-7xl grid-cols-[1fr_auto] items-center gap-4 px-5 sm:px-8 lg:grid-cols-[1fr_auto_1fr]">
           {/* brand */}
-          <Link to={base || "/"} onClick={close} className={`flex min-w-0 items-center gap-3 justify-self-start rounded-lg ${focusRing}`}>
-            <Monogram profile={profile} />
-            <span className="truncate font-display font-semibold tracking-tight">{brand}</span>
+          <Link to={base || "/"} onClick={close} className={`flex min-w-0 items-center gap-2.5 justify-self-start rounded-lg ${focusRing}`}>
+            <Monogram profile={profile} size={32} />
+            <span className="truncate font-display font-bold tracking-tight">{brand}</span>
           </Link>
 
           {/* nav, truly centred on wide screens */}
@@ -301,24 +270,16 @@ export default function Header({ profile, sections, base = "", hasBlog = false }
               <Controls />
             </div>
             <span className="hidden lg:block">
-              <Magnetic strength={0.2}>
-                <HireButton base={base} sections={sections} className="!py-2.5" />
-              </Magnetic>
+              <HireButton base={base} sections={sections} className="!py-2 !px-4" />
             </span>
-            <button
-              type="button"
-              className={`${btn.icon} lg:hidden`}
-              onClick={() => setOpen((v) => !v)}
-              aria-expanded={open}
-              aria-label={pick("Menu", "القائمة")}
-            >
+            <button type="button" className={`${btn.icon} lg:hidden`} onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label={pick("Menu", "القائمة")}>
               {open ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
         </div>
       </div>
 
-      <AnimatePresence>{open && <MobileMenu sections={sections} base={base} hasBlog={hasBlog} hasAnnounce={hasAnnounce} close={close} />}</AnimatePresence>
+      {open && <MobileMenu sections={sections} base={base} hasBlog={hasBlog} hasAnnounce={hasAnnounce} close={close} />}
     </header>
   );
 }

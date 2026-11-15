@@ -7,8 +7,8 @@ export default function NotFound() {
   return (
     <main className="min-h-screen grid place-items-center px-5 text-center">
       <div>
-        <p className="font-mono text-accent-ink text-sm">404</p>
-        <h1 className="mt-3 text-4xl font-semibold">{pick("This page doesn't exist.", "الصفحة دي مش موجودة.")}</h1>
+        <p className="font-display text-[7rem] font-bold leading-none tracking-[-0.06em] text-fg/10">404</p>
+        <h1 className="mt-2 text-4xl tracking-[-0.03em]">{pick("This page doesn't exist.", "الصفحة دي مش موجودة.")}</h1>
         <Link to="/" className={`${btn.primary} mt-8`}>
           {pick("Back to the homepage", "ارجع للرئيسية")}
         </Link>

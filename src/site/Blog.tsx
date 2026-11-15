@@ -65,9 +65,9 @@ function FeaturedPost({ post }: { post: Post }) {
   return (
     <Link
       to={`/blog/${post.slug}`}
-      className="group glass grid items-center gap-6 rounded-[2rem] p-3 sm:p-4 lg:grid-cols-[1.15fr_1fr] lg:gap-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      className="group grid items-center gap-6 border-b border-line pb-12 lg:grid-cols-[1.3fr_1fr] lg:gap-12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
     >
-      <div className="aspect-[16/10] overflow-hidden rounded-[1.5rem] bg-surface-2">
+      <div className="aspect-[16/10] overflow-hidden rounded-3xl border border-line bg-surface-2">
         {post.cover && (
           <img
             src={post.cover}
@@ -77,7 +77,7 @@ function FeaturedPost({ post }: { post: Post }) {
         )}
       </div>
 
-      <div className="px-2 pb-3 lg:px-0 lg:pb-0 lg:pe-8">
+      <div>
         <p className="flex flex-wrap items-center gap-3 text-sm text-faint">
           <time dateTime={post.published_at}>
             {new Date(post.published_at).toLocaleDateString(isAr ? "ar-EG" : "en-US", { day: "numeric", month: "long", year: "numeric" })}
@@ -86,7 +86,7 @@ function FeaturedPost({ post }: { post: Post }) {
             <Clock size={13} aria-hidden /> {readingMinutes(body)} {pick("min read", "دقايق قراءة")}
           </span>
         </p>
-        <h2 className="mt-4 text-3xl sm:text-4xl tracking-tight text-balance">{pick(post.title_en, post.title_ar)}</h2>
+        <h2 className="mt-4 text-3xl sm:text-[2.6rem] leading-[1.08] tracking-[-0.03em] text-balance">{pick(post.title_en, post.title_ar)}</h2>
         {excerpt && <p className="mt-4 text-muted leading-relaxed line-clamp-3">{excerpt}</p>}
         {post.tags.length > 0 && (
           <ul className="mt-5 flex flex-wrap gap-2">
@@ -138,7 +138,7 @@ export function BlogIndex() {
         <div className="max-w-7xl mx-auto">
           {/* header */}
           <Reveal className="max-w-3xl">
-            <h1 className="text-5xl sm:text-7xl tracking-tight text-balance">
+            <h1 className="text-5xl sm:text-7xl leading-[1] tracking-[-0.045em] text-balance">
               <GradientTitle text={pick("Notes from the work", "ملاحظات من الشغل")} />
             </h1>
             <p className="mt-6 text-lg text-muted leading-relaxed max-w-xl">
@@ -174,7 +174,7 @@ export function BlogIndex() {
           {status === "loading" ? (
             <ul className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3" aria-busy="true">
               {[0, 1, 2].map((i) => (
-                <li key={i} className="h-80 rounded-[2rem] bg-surface-2/60 animate-pulse motion-reduce:animate-none" />
+                <li key={i} className="h-80 rounded-3xl bg-surface-2 animate-pulse motion-reduce:animate-none" />
               ))}
             </ul>
           ) : list.length === 0 ? (
@@ -194,14 +194,14 @@ export function BlogIndex() {
               )}
             </div>
           ) : (
-            <div className="mt-10 space-y-5">
+            <div className="mt-12 space-y-12">
               {featured && (
                 <Reveal>
                   <FeaturedPost post={featured} />
                 </Reveal>
               )}
               {rest.length > 0 && (
-                <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                <ul className="grid gap-x-6 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
                   {rest.map((p, i) => (
                     <Reveal as="li" key={p.id} delay={(i % 3) * 0.06}>
                       <PostCard post={p} />
@@ -364,7 +364,7 @@ export function BlogPost() {
           </Link>
 
           <header className="mt-10 max-w-3xl">
-            <h1 className="text-4xl sm:text-6xl tracking-tight text-balance">
+            <h1 className="text-4xl sm:text-6xl leading-[1.02] tracking-[-0.04em] text-balance">
               <GradientTitle text={pick(post.title_en, post.title_ar)} />
             </h1>
             {excerpt && <p className="mt-6 text-xl text-muted leading-relaxed">{excerpt}</p>}
@@ -379,8 +379,8 @@ export function BlogPost() {
           </header>
 
           {post.cover && (
-            <div className="glass mt-10 rounded-[2rem] p-2">
-              <img src={post.cover} alt="" className="w-full rounded-[1.6rem]" />
+            <div className="mt-10 overflow-hidden rounded-3xl border border-line bg-surface-2">
+              <img src={post.cover} alt="" className="w-full" />
             </div>
           )}
         </div>
@@ -409,7 +409,7 @@ export function BlogPost() {
               {post.tags.length > 0 ? (
                 <ul className="flex flex-wrap gap-2">
                   {post.tags.map((t) => (
-                    <li key={t} className="glass rounded-pill px-3 py-1 text-xs text-muted">
+                    <li key={t} className="rounded-pill border border-line px-3 py-1 text-xs text-muted">
                       #{t}
                     </li>
                   ))}
@@ -435,7 +435,7 @@ export function BlogPost() {
         {more.length > 0 && (
           <div className="max-w-7xl mx-auto mt-28">
             <h2 className="text-3xl tracking-tight">{pick("Keep reading", "اقرا كمان")}</h2>
-            <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-8 grid gap-x-6 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
               {more.map((p) => (
                 <li key={p.id}>
                   <PostCard post={p} />

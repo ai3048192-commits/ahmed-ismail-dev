@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Loader2, Lock } from "lucide-react";
 import { useSettings } from "../lib/site-settings";
@@ -6,10 +6,9 @@ import { supabase } from "../lib/supabase";
 import { checkAdmin } from "./useAdmin";
 import { input, Label } from "./fields";
 
-const Hero3D = lazy(() => import("../site/Hero3D"));
-
 export default function Login() {
   const { settings: s } = useSettings();
+  const brand = s.brand_name_ar || s.brand_name_en || "AI";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -35,16 +34,11 @@ export default function Login() {
 
   return (
     <main className="min-h-screen grid lg:grid-cols-2 gap-3 p-3">
-      <div className="relative hidden lg:block overflow-hidden rounded-3xl border border-line bg-surface">
-        <div aria-hidden className="absolute inset-[20%] rounded-full blur-[80px] opacity-60" style={{ background: s.accent }} />
-        {s.hero_3d !== "none" && (
-          <Suspense fallback={null}>
-            <Hero3D kind={s.hero_3d} color={s.accent} wireframe={s.hero_3d_wireframe} speed={1} interactive particles animate />
-          </Suspense>
-        )}
-        <div className="absolute inset-x-8 bottom-8">
-          <p className="font-mono text-[11px] uppercase text-faint">Admin</p>
-          <p className="mt-3 font-display text-4xl tracking-tight max-w-[14ch]">كل حاجة في موقعك، من مكان واحد.</p>
+      <div className="relative hidden lg:flex flex-col justify-between overflow-hidden rounded-3xl bg-fg p-10 text-bg">
+        <p className="font-display text-lg font-bold">{brand}</p>
+        <div>
+          <span aria-hidden className="block h-1.5 w-16 rounded-full bg-accent" />
+          <p className="mt-6 max-w-[14ch] font-display text-5xl font-bold leading-[1.05] tracking-tight">كل حاجة في موقعك، من مكان واحد.</p>
         </div>
       </div>
 
@@ -53,7 +47,7 @@ export default function Login() {
           <span className="grid h-12 w-12 place-items-center rounded-2xl bg-accent text-accent-fg">
             <Lock size={20} />
           </span>
-          <h1 className="mt-8 font-display text-4xl tracking-tight">لوحة التحكم</h1>
+          <h1 className="mt-8 font-display text-4xl font-bold tracking-tight">لوحة التحكم</h1>
           <p className="mt-2 text-sm text-muted">الدخول للأدمن بس.</p>
 
           <div className="mt-10 space-y-4">

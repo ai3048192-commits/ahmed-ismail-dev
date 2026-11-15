@@ -12,18 +12,6 @@ const CATEGORY_AR: Record<string, string> = {
   Performance: "الأداء",
 };
 
-/** small progress ring in the skill's own color */
-function Ring({ level, color }: { level: number; color: string }) {
-  const r = 9;
-  const c = 2 * Math.PI * r;
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" className="-rotate-90 shrink-0" role="img" aria-label={`${level}%`}>
-      <circle cx="12" cy="12" r={r} fill="none" stroke="var(--line)" strokeWidth="3" />
-      <circle cx="12" cy="12" r={r} fill="none" stroke={color} strokeWidth="3" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - level / 100)} />
-    </svg>
-  );
-}
-
 export default function Skills({ skills, index }: { skills: Skill[]; index: string }) {
   const { pick, isAr } = usePrefs();
 
@@ -37,26 +25,25 @@ export default function Skills({ skills, index }: { skills: Skill[]; index: stri
   return (
     <Section id="skills">
       <SectionHeading section="skills" index={index} />
-      <div className="glass rounded-[2rem] divide-y divide-line">
+      <div className="border-t border-line">
         {groups.map((g, gi) => (
-          <Reveal key={g.name} delay={gi * 0.05} className="grid gap-5 p-6 sm:p-8 lg:grid-cols-[240px_1fr] lg:items-center">
+          <Reveal key={g.name} delay={gi * 0.04} className="grid gap-5 border-b border-line py-8 lg:grid-cols-[260px_1fr] lg:items-start lg:gap-10">
             <div className="flex items-baseline gap-3">
-              <h3 className="font-display text-3xl tracking-tight text-grad">{isAr ? CATEGORY_AR[g.name] || g.name : g.name}</h3>
+              <h3 className="font-display text-2xl font-bold tracking-tight">{isAr ? CATEGORY_AR[g.name] || g.name : g.name}</h3>
               <span className="font-mono text-xs text-faint">{String(g.items.length).padStart(2, "0")}</span>
             </div>
-            <ul className="flex flex-wrap gap-2.5">
+            <ul className="flex flex-wrap gap-2">
               {g.items.map((s) => (
                 <li
                   key={s.id}
                   title={pick(s.desc_en, s.desc_ar) || undefined}
-                  className="group flex items-center gap-2.5 rounded-pill border border-line bg-bg/40 ps-1.5 pe-4 py-1.5 transition-all duration-300 hover:-translate-y-0.5"
-                  style={{ boxShadow: `0 0 0 0 ${s.color}` }}
-                  onPointerEnter={(e) => (e.currentTarget.style.boxShadow = `0 10px 30px -12px ${s.color}`)}
-                  onPointerLeave={(e) => (e.currentTarget.style.boxShadow = `0 0 0 0 ${s.color}`)}
+                  className="relative flex items-center gap-2.5 overflow-hidden rounded-pill border border-line bg-surface px-4 py-2"
                 >
-                  <Ring level={s.level} color={s.color} />
+                  <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: s.color }} aria-hidden />
                   <span className="text-sm font-medium">{pick(s.name_en.trim(), s.name_ar)}</span>
                   <span className="font-mono text-[11px] text-faint">{s.level}%</span>
+                  {/* level as a hairline along the bottom edge */}
+                  <span aria-hidden className="absolute bottom-0 start-0 h-[2px] opacity-70" style={{ width: `${s.level}%`, background: s.color }} />
                 </li>
               ))}
             </ul>
